@@ -1,2 +1,11 @@
 site_name: BookBrainz Developer Docs
+pages:
+- ['index.md', 'Home']
+- ['schema/overview.md', 'Schema', 'Overview']
+- ['schema/entities.md', 'Schema', 'Entities']
+- ['schema/musicbrainz.md', 'Schema', 'Coming from MusicBrainz']
+- ['webservice/overview.md', 'Web Service', 'Overview']
+- ['webservice/authentication.md', 'Web Service', 'Authentication']
+- ['webservice/editing.md', 'Web Service', 'Editing']
 theme: readthedocs
+repo_url: https://github.com/BookBrainz/bbdocs-dev
