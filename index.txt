@@ -14,21 +14,13 @@ For a description of the BookBrainz and end-user oriented documentation, please
 see the BookBrainz User Guide.
 
 
-
+Contents
+========
 
 .. toctree::
-   :maxdepth: 2
-
-   Schema Overview <schema/overview>
-   Schema Entities <schema/entities>
-   Schema MusicBrainz <schema/musicbrainz>
-   Webservice Overview <webservice/overview>
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   docs/schema
+   docs/entities
+   docs/musicbrainz
+   docs/webservice
+   docs/authentication
+   docs/editing

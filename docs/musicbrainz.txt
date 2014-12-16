@@ -1,3 +1,7 @@
+#######################
+Coming from MusicBrainz
+#######################
+
 This page describes the key differences between the BookBrainz and MusicBrainz
 schemas, for developers already familiar with the MusicBrainz schema.
 
