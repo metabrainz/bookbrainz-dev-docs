@@ -14,4 +14,4 @@ fit together, but for now, you'll have to make do with some words.
 
 There are several core concepts to understand when considering the schema:
 
-- [Entities](entities.md)
+- Entities <entities>
