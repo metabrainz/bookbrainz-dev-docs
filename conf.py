@@ -36,7 +36,7 @@ extensions = [
 templates_path = ['_templates']
 
 # The suffix of source filenames.
-source_suffix = '.rst'
+source_suffix = '.txt'
 
 # The encoding of source files.
 #source_encoding = 'utf-8-sig'
@@ -187,7 +187,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'BookBrainzDeveloperDocsdoc'
+htmlhelp_basename = 'BookBrainzDeveloperDocs'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -207,7 +207,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'BookBrainzDeveloperDocs.tex', u'BookBrainz Developer Docs Documentation',
+  ('index', 'BookBrainzDeveloperDocs.tex', u'BookBrainz Developer Docs',
    u'Ben Ockmore', 'manual'),
 ]
 
@@ -237,7 +237,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'bookbrainzdeveloperdocs', u'BookBrainz Developer Docs Documentation',
+    ('index', 'bookbrainzdeveloperdocs', u'BookBrainz Developer Docs',
      [u'Ben Ockmore'], 1)
 ]
 
@@ -251,7 +251,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'BookBrainzDeveloperDocs', u'BookBrainz Developer Docs Documentation',
+  ('index', 'BookBrainzDeveloperDocs', u'BookBrainz Developer Docs',
    u'Ben Ockmore', 'BookBrainzDeveloperDocs', 'One line description of project.',
    'Miscellaneous'),
 ]
