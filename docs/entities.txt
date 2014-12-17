@@ -23,6 +23,12 @@ Entities in BookBrainz are versioned, which means that the entire entity history
 is stored in the database. To make this possible, we have an additional table
 in the database, called **entity_tree**.
 
+.. figure:: /_static/entity.1degree.png
+   :align: center
+
+   **The entity table and its relationships.**
+
+
 Entity Tree
 -----------
 The **entity_tree** table is the place where information is actually stored. You
@@ -32,8 +38,13 @@ most recent annotation ID, disambiguation comment ID and entity-specific data ID
 will usually be stored at this level.
 
 When a new version of an entity is created, a corresponding row in
-**entity_tree** is created, which will indicate that data was updated by modifying one of the
-stored IDs.
+**entity_tree** is created, which will indicate that data was updated by
+modifying one of the stored IDs.
+
+.. figure:: /_static/entity_tree.1degree.png
+   :align: center
+
+   **The entity_tree table and its relationships.**
 
 Entity Data
 -----------
@@ -43,6 +54,11 @@ use joined table inheritance to represent the different entities in BookBrainz,
 and this single **entity_data** table represent the base object in this inheritance
 hierarchy. It contains an ID and a field to determine the type of entity data
 stored, known as the *discriminator*.
+
+.. figure:: /_static/entity_data.1degree.png
+   :align: center
+
+   **The entity_data table and its relationships.**
 
 Additional Tables
 -----------------
