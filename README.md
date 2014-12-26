@@ -4,6 +4,6 @@ hosted on readthedocs.org.
 Further Information
 -------------------
 For more information about reStructuredText, please see
-http://daringfireball.net/projects/markdown/
+http://docutils.sourceforge.net/rst.html
 
-To find out about MkDocs, see http://www.mkdocs.org/
+To find out about Sphinx, see http://sphinx-doc.org/
