@@ -1,3 +1,7 @@
 #####################
 BookBrainz Webservice
 #####################
+
+The BookBrainz webservice provides developers with a way to make programs which
+use BookBrainz data. The BookBrainz site itself uses the web service to access
+and modify data.
