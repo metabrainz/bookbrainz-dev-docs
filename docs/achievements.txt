@@ -1,0 +1,44 @@
+########
+Gamification
+########
+
+Introduction
+============
+The BookBrainz gamification system is a method of encouraging users to contribute to the database. The list of achievements will be available publicly but some ideas of the achievements that will be supplied are available [here](https://docs.google.com/document/d/1yuFMTVifYiyoiTS73TcaneNlQKLe6_gX0xtgksB4o4s/edit?usp=sharing)
+
+Functions Supplied
+==================
+
+achievement.processEdit(req): 
+
+this will invoke checks for all achievements that could be triggered by creating an edit. Achievements currently supplied by this are:
+
+	* Revisionist I - submit one revision.
+
+Tables
+======
+
+The tables supplied are achievement_type, achievement_unlock, title_type and title_unlock.
+
+## achievement_type
+
+	* name: Name of achievement i.e "Revisionist I".
+	* description: How to obtain achievement, this is displayed when hovering over a badge.
+	* badge_url: The associated badge for an achievement.
+
+## achievement_unlock
+
+	* editor_id: Editor for whom the achievement is applied.
+	* achievement_id: Achievement to be applied.
+	* unlocked_at: Timestamp for achievement.
+
+## title_type
+
+	* title: Publicly visible title i.e "Bug Hunter".
+	* description: How to obtain a title, this will be displayed when hovering over a title or username (on pages where titles are not shown).
+
+## title_unlock
+
+	* editor_id: Editor for whom the title is applied.
+	* title_id: Title that is being applied.
+	* unlocked_at: Timestamp for when title was unlocked.
