@@ -1,10 +1,16 @@
 ########
-Gamification
+Achievement System
 ########
 
 Introduction
 ============
-The BookBrainz gamification system is a method of encouraging users to contribute to the database. The list of achievements will be available publicly but some ideas of the achievements that will be supplied are available [here](https://docs.google.com/document/d/1yuFMTVifYiyoiTS73TcaneNlQKLe6_gX0xtgksB4o4s/edit?usp=sharing)
+
+The BookBrainz achievement system is a method of encouraging users to contribute to the database. The list of achievements will be available publicly but some ideas of the achievements that will be supplied are available [here](https://docs.google.com/document/d/1yuFMTVifYiyoiTS73TcaneNlQKLe6_gX0xtgksB4o4s/edit?usp=sharing)
+
+How It Works
+============
+
+There are two basic types of achievement supplied by the system. Most of them will be awarded automatically by checking upon submission of a form by the user. Since achievements can only be awarded for certain types of interaction we can avoid checking all of them and only check relavant ones for each type of form. The other type will be awarded manually by way of an admin console which will be available on completion of the project.
 
 Functions Supplied
 ==================
@@ -22,23 +28,31 @@ The tables supplied are achievement_type, achievement_unlock, title_type and tit
 
 ## achievement_type
 
-	* name: Name of achievement i.e "Revisionist I".
-	* description: How to obtain achievement, this is displayed when hovering over a badge.
-	* badge_url: The associated badge for an achievement.
+The achievement type table will hold all of the available achievements. Each achievement will have a name such as "Revisionist I" along with a description of how to obtain it. A badge will be awarded for each achievment unlocked. all the achievements in this table once the module is completed.
+
+	* name: Achievement name of length at most 80 characters.
+	* description: TEXT field of how to obtain achievement.
+	* badge_url: URL for associated badge, text field length 2083 per [stack overflow](http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers).
 
 ## achievement_unlock
 
-	* editor_id: Editor for whom the achievement is applied.
-	* achievement_id: Achievement to be applied.
-	* unlocked_at: Timestamp for achievement.
+This table keeps track of unlocked achievements for all editors. It links an editor to an achievement and keeps track of the time the achievement was unlocked. We will use the time unlocked in the profile page of users.
+
+	* editor_id: Foreign key for an editor
+	* achievement_id: Foreign key for an achievement_type
+	* unlocked_at: Timestamp in UTC
 
 ## title_type
 
-	* title: Publicly visible title i.e "Bug Hunter".
-	* description: How to obtain a title, this will be displayed when hovering over a title or username (on pages where titles are not shown).
+The title type table holds all available titles. The titles are unique and will be displayed on hovering over a name along with how it was obtained. All titles in this table will be displayed once the module is complete. 
+
+	* title: Title string of length at most 40 characters.
+	* description: TEXT field of how to obtain title.
 
 ## title_unlock
 
-	* editor_id: Editor for whom the title is applied.
-	* title_id: Title that is being applied.
-	* unlocked_at: Timestamp for when title was unlocked.
+This table keeps track of unlocked titles for all editors. It links and editor to a title and keeps track of the time the title was unlocked. We will use the time unlocked in the title selection menu.
+
+	* editor_id: Foriegn key to editor
+	* title_id: Foriegn key to title_type
+	* unlocked_at: Timestamp in UTC
