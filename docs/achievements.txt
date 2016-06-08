@@ -30,29 +30,38 @@ The tables supplied are achievement_type, achievement_unlock, title_type and tit
 
 The achievement type table will hold all of the available achievements. Each achievement will have a name such as "Revisionist I" along with a description of how to obtain it. A badge will be awarded for each achievment unlocked. all the achievements in this table once the module is completed.
 
-	* name: Achievement name of length at most 80 characters.
-	* description: TEXT field of how to obtain achievement.
-	* badge_url: URL for associated badge, text field length 2083 per [stack overflow](http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers).
+.. figure:: /_static/achievement_type.1degree.png
+   :align: center
+
+   **The achievement_type table and its relationships.**
+
+
 
 ## achievement_unlock
 
 This table keeps track of unlocked achievements for all editors. It links an editor to an achievement and keeps track of the time the achievement was unlocked. We will use the time unlocked in the profile page of users.
 
-	* editor_id: Foreign key for an editor
-	* achievement_id: Foreign key for an achievement_type
-	* unlocked_at: Timestamp in UTC
+.. figure:: /_static/achievement_unlock.1degree.png
+   :align: center
+
+   **The achievement_unlock table and its relationships.**
+
 
 ## title_type
 
 The title type table holds all available titles. The titles are unique and will be displayed on hovering over a name along with how it was obtained. All titles in this table will be displayed once the module is complete. 
 
-	* title: Title string of length at most 40 characters.
-	* description: TEXT field of how to obtain title.
+.. figure:: /_static/title_type.1degree.png
+   :align: center
+
+   **The title_type table and its relationships.**
+
 
 ## title_unlock
 
 This table keeps track of unlocked titles for all editors. It links and editor to a title and keeps track of the time the title was unlocked. We will use the time unlocked in the title selection menu.
 
-	* editor_id: Foriegn key to editor
-	* title_id: Foriegn key to title_type
-	* unlocked_at: Timestamp in UTC
+.. figure:: /_static/title_unlock.1degree.png
+   :align: center
+
+   **The title_unlock table and its relationships.**
