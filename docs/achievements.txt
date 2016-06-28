@@ -17,11 +17,23 @@ Achievements belong to "Tracks", that progressively get harder as levels are unl
 Functions Supplied
 ==================
 
-achievement.processEdit(req): 
+achievement.processEdit(req):
 
-this will invoke checks for all achievements that could be triggered by creating an edit. Achievements currently supplied by this are:
+this will invoke checks for all achievements that could be triggered by creating an edit. Achievement tracks currently supplied by this are:
 
-	* Revisionist I - submit one revision.
+	* Revisionist: Perform (1, 50, 250) Revision(s)
+	* Publisher: Create (1, 10, 25) Publications(s)
+	* Creator Creator: Create (1, 10, 25) Creator(s)
+	* Sprinter: Create 10 revisions in an hour
+	* Fun Runner: Create a revision a day for a week
+	* Marathoner: Create a revision a day for 30 days
+
+The folling achievements names are TBC:
+
+	* Limited Edition: Create (1, 10, 25) Edition(s)
+	* Publisher Creator: Create (1, 10, 25) Publisher(s)
+	* Worker Bee: Create (1, 10, 25) Work(s)
+
 
 Tables
 ======
