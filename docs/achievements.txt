@@ -10,7 +10,9 @@ The BookBrainz achievement system is a method of encouraging users to contribute
 How It Works
 ============
 
-There are two basic types of achievement supplied by the system. Most of them will be awarded automatically by checking upon submission of a form by the user. Since achievements can only be awarded for certain types of interaction we can avoid checking all of them and only check relavant ones for each type of form. The other type will be awarded manually by way of an admin console which will be available on completion of the project.
+There are two basic types of achievement supplied by the system. Most of them will be awarded automatically by checking upon submission of a form by the user. Since achievements can only be awarded for certain types of interaction we can avoid checking all of them and only check relavant ones for each type of form. The other type are awarded manually by way of an admin console.
+
+Achievements belong to "Tracks", that progressively get harder as levels are unlocked with new badges upon completion of a level. On completion of a track a title will be awarded which can be viewed on the profile page on on hover of a username elsewhere on the site.
 
 Functions Supplied
 ==================
