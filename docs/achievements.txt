@@ -17,22 +17,32 @@ Achievements belong to "Tracks", that progressively get harder as levels are unl
 Functions Supplied
 ==================
 
-achievement.processEdit(req):
+achievement.processRegister(recruiterId)
+
+this will invoke checks for the recruiter achievement, we are given the recruiter id. The only achievement on this method is:
+
+	* Recruiter: Have (1, 2, 5) users register using your registration link
+
+achievement.processPageVisit(userId)
+
+this will invoke checks for achievements earned on a page visit. Currently the only achievement based on this method is:
+
+	* Explorer: View (10, 100. 1000) Entities
+
+achievement.processEdit(userId, revisionId):
 
 this will invoke checks for all achievements that could be triggered by creating an edit. Achievement tracks currently supplied by this are:
 
 	* Revisionist: Perform (1, 50, 250) Revision(s)
-	* Publisher: Create (1, 10, 25) Publications(s)
 	* Creator Creator: Create (1, 10, 25) Creator(s)
+	* Limited Edition: Create (1, 10, 25) Edition(s)
+	* Publisher: Create (1, 10, 25) Publications(s)
+	* Publisher Creator: Create (1, 10, 25) Publisher(s)
+	* Worker Bee: Create (1, 10, 25) Work(s)
 	* Sprinter: Create 10 revisions in an hour
 	* Fun Runner: Create a revision a day for a week
 	* Marathoner: Create a revision a day for 30 days
-
-The folling achievements names are TBC:
-
-	* Limited Edition: Create (1, 10, 25) Edition(s)
-	* Publisher Creator: Create (1, 10, 25) Publisher(s)
-	* Worker Bee: Create (1, 10, 25) Work(s)
+	* Time Traveller: Create an Edition before its released
 
 
 Tables
