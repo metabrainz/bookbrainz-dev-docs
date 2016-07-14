@@ -1,0 +1,18 @@
+########
+Elastic Search
+########
+
+Introduction
+============
+
+Elasticsearch is used in bookbrainz to search the database in various locations on the site. During development you may need to use this in order to avoid errors. 
+
+Installation
+============
+
+To install elasticsearch follow this (guide)[https://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html]. Then in config/development.json change the search.host attribute to the location of your search cluster if it is different to the default.
+
+Usage
+===========
+
+Currently the only users able to reindex elastic search are Leftmost and LordSputnik. During development you can bypass this by going to src/server/routes/search.js and commenting out the lines that check if the user is allowed to reindex (At time of writing lines 73-75). Once this is completed head to {bbwebserver}/search/reindex to reindex the search server. Once this is complete elasticsearch should be working correctly. To test this, create a publisher, reindex, and then create an edition. In the publisher selecter, type the name of the publisher. If they appear you have done this correctly.
