@@ -12,15 +12,39 @@ are some key differences - see :doc:`musicbrainz`.
 Overview
 ========
 
-There are 6 entity types in the BookBrainz world: Author, Work, Edition Group, Edition, Publisher and Series.
-For a description of each entity, see :doc:`entities`.
+In BookBrainz, an entity is a container for some data, associated with some
+globally unique identifiers (GIDs). BookBrainz represents a number of different
+objects as entities, and each of these has its own particular associated data.
+In the following section, we'll go through the database structures used to
+represent entities, and talk about each type of entity in more detail.
 
-The BookBrainz edit system uses revisions to track changes made to an entity over time.
+There are 6 entity types in the BookBrainz world: Author, Work, Edition Group, Edition, Publisher and Series.
+For a description of each entity, see https://bookbrainz.org/help.
+
+Entity and Entity Redirect
+--------------------------
+All entity GIDs are stored in a single table in the database, **entity**.
+
+A second table, **entity_redirect**, allows redirection of GIDs. For example, if
+one entity was merged into a second entity, then a row would be created in the
+**entity_redirect** table to indicate a mapping to the merge target.
+
+.. figure:: /_static/schema_diagrams/entity.png
+   :align: center
+
+   **The entity table and its relationships.**
+
+Versioning
+----------
+
+Entities in BookBrainz are versioned, which means that the entire entity history
+is stored in the database. To make this possible, we have a number of additional tables
+in the database.
 For an explanation, let’s take the example of an Author entity.
 
 The ‘entity’ table, common to all entity types, describes the BBID (unique identifier, will never change) and type of an entity.
-The ‘author_header’ table tells us what is the master –or latest– revision of that Author entity
 Each entity type has its own `_header` and `_revision` tables, in this case ‘author_header’ and ‘author_revision’.
+The ‘author_header’ table tells us what is the master –or latest– revision of that Author entity
 
 The `author_revision` entry points to the `author_data` table representing the state of that entity at that revision.
 Each time a user modifies one or more entities, a new revision is created for each entity modified.
@@ -122,12 +146,29 @@ Relationships are of a specific type (a relationship_type referred to by id) tha
 
    A relationship set contains relationship entries
    
-Disambiguation
---------------
 
-| When two entities have the same name, we need a way to tell them apart.
-| That’s where disambiguations come in!
-| All entities can have a disambiguation (although they are not required), referred to by a disambiguation_id, that points to the disambiguation table.
+Additional Tables
+-----------------
+There are some additional tables related to all types of entity. We've already
+mentioned annotations and disambiguations, so let's talk a little more about
+those.
+
+An **annotation** is a way of making notes about an entity, for other
+editors to read. It stores some content associated with an ID. Disambiguation
+comments, stored in the **disambiguation** table, have a similar data structure
+but are intended to contain a short description to allow editors to easily
+differentiate between similarly-named entities.
+
+An **alias** represents a name or title. Each alias will store some text along
+with a language, and a couple of flags to indicate whether the alias is
+*primary* and whether it is *native*. An entity can only have one *native*
+alias, which indicates its original name. It can have many *primary* aliases,
+which give the most common names in particular languages. *Native* aliases will
+usually also be *primary*.
+
+A **disambiguation** allows us to differenciate between two entities with the same name.
+All entities can have a disambiguation (although they are not required),
+referred to by a disambiguation_id, that points to the disambiguation table.
 
 
 Author credits

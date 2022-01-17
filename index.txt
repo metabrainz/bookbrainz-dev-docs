@@ -19,8 +19,6 @@ Contents
 
 .. toctree::
    docs/schema
-   docs/entities
    docs/musicbrainz
    docs/webservice
-   docs/authentication
    docs/editing
