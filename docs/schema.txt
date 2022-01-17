@@ -9,9 +9,140 @@ quite important to have a good idea of this before you look at any of our code.
 If you're coming from a MusicBrainz background, our schema is similar, but there
 are some key differences - see :doc:`musicbrainz`.
 
-Definition
-==========
-The BookBrainz schema is defined in the python-bbschema package, which you can
-access at https://github.com/BookBrainz/python-bbschema. When the schema is more
-stable, there'll be a nice schema diagram here to help you understand how things
-fit together, but for now, you'll have to make do with some words.
+Overview
+========
+
+There are 6 entity types in the BookBrainz world: Author, Work, Edition Group, Edition, Publisher and Series.
+For a description of each entity, see :doc:`entities`.
+
+The BookBrainz edit system uses revisions to track changes made to an entity over time.
+For an explanation, let’s take the example of an Author entity.
+
+The ‘entity’ table, common to all entity types, describes the BBID (unique identifier, will never change) and type of an entity.
+The ‘author_header’ table tells us what is the master –or latest– revision of that Author entity
+Each entity type has its own `_header` and `_revision` tables, in this case ‘author_header’ and ‘author_revision’.
+
+The `author_revision` entry points to the `author_data` table representing the state of that entity at that revision.
+Each time a user modifies one or more entities, a new revision is created for each entity modified.
+That includes adding or modifying a relationship between two entities.
+
+.. figure:: ../_static/schema_diagrams/author_header.png
+   :align: center
+
+   The main tables for Author entities
+
+
+Revisions
+=========
+
+A revision represents a set of changes to one or more entities.
+
+If you change an Author’s date of birth, your revision will have the same ID as one single author_revision, which represents the state of that entity at that time.
+
+If, for example, you create a relationship between an Author and a Work (i.e. Author X wrote Work Y), you will have a single revision, but you will find an author_revision AND a work_revision with the same ID as the revision.
+This tells us that unit of change concerns the two entities, and each *entity*_revision represents that entity’s state after that change.
+
+Following me so far?
+
+.. figure:: ../_static/schema_diagrams/revision_schema.png
+   :align: center
+
+   The revision table and associated tables
+
+
+Entity revision
+---------------
+
+.. figure:: ../_static/schema_diagrams/author_revision_schema.png
+   :align: right
+
+   An author_revision in action
+
+As we saw above, a change to an Author will create a new author_revision which contains a data_id column.
+This ID links to an entry in the author_data table that describes the state of that entity.
+
+Revision parent
+---------------
+
+The ‘revision_parent’ table allows us to reconstruct the history of all the edits that have changed an entity,
+inspect it at any given time, and even revert past edits.
+When a new revision is created, it stores a reference to the previous revision.
+For merge revisions, it will store a reference to the revisions of each entity being merged.
+
+
+Entity data
+===========
+
+Some of the information is stored directly in that author_data table, and some other information are stored separately.
+Each entity uses *sets* to represent multiple values that might change over time: aliases (or names), identifiers (ID of that entity in other systems like wikidata), and relationships.
+
+.. figure:: ../_static/schema_diagrams/author_data.png
+   :align: right
+
+   Overview of the author_data associated tables
+
+Alias sets
+----------
+Aliases are stored each separately, and combined to form an alias_set.
+This represents the various names of an entity.
+For example, an Author could have their birth name, a pen name, their name in various other languages, etc.
+There is a default_alias_id stored for each alias_set that points to one alias, as a shortcut if you only needs the main name of an entity.
+
+.. figure:: ../_static/schema_diagrams/alias_set.png
+   :align: center
+
+   An alias and the set it belongs to
+
+When an alias is added to an entity, a new alias_set is created that will contain the previous unchanged aliases as well as the new alias.
+
+If an existing alias is modified, a new alias entry will be created as well as a new set containing that new alias entry.
+That means if we want to revert the change, the previous revision contains a reference to the previous alias_set that contains the original alias.
+
+You will find the same structure for identifier sets and relationship sets.
+
+Identifier sets
+---------------
+Identifiers represent the ID of the entity in another system (wikidata, musicbrainz, openlibrary, etc.).
+An entity can have an identifier set, represented by an id linking to  row in the identifier_set__identifier table, which links a set to the identifiers that comprise it.
+That way, when adding a new identifier, a new set is created but the existing identifiers are not modified.
+
+The set is comprised of identifiers each of a type_id that refers to the identifier_type table.
+The entity_type must correspond to the Entity’s type.
+The other columns of identifier_type are used for detecting and displaying purposes on the front-end and API.
+
+.. figure:: ../_static/schema_diagrams/identifier_sets.png
+   :align: center
+   
+Relationship sets
+-----------------
+Relationships are of a specific type (a relationship_type referred to by id) that describes the relationship, the entity type expected on either side of the relationship, and the phrases to use to represent the relationship from either direction (i.e: “Author X wrote Work Y” and “Work Y was written by AuthorX”).
+
+.. figure:: ../_static/schema_diagrams/relationship.png
+   :align: center
+
+   A relationship set contains relationship entries
+   
+Disambiguation
+--------------
+
+| When two entities have the same name, we need a way to tell them apart.
+| That’s where disambiguations come in!
+| All entities can have a disambiguation (although they are not required), referred to by a disambiguation_id, that points to the disambiguation table.
+
+
+Author credits
+==============
+
+.. figure:: ../_static/schema_diagrams/author_credits.png
+   :align: right
+   :scale: 40%
+
+Author credits allows us to define how authors are credited in an Edition (as on the book cover), without having to create separate Author entities for each pen name or name variation.
+
+For example, Howard Phillips Lovecraft published under the names “H.P. Lovecraft” most notoriously, but you will find some Editions use the full name “Howard Phillips Lovecraft”
+
+The author credits are composed of one or more authors. For each author, an author_credit_name is created with the author’s BBID, name as credited and position, as well as a short phrase to join them with the next author.
+
+For example if a book cover features “by John and Jane Doe”, you would enter:
+Position 1: John Doe’s BBID - name: “by John” - join phrase “and ”
+Position 2: Jane Doe’s BBID - name: “Jane Doe”
