@@ -18,6 +18,8 @@ objects as entities, and each of these has its own particular associated data.
 In the following section, we'll go through the database structures used to
 represent entities, and talk about each type of entity in more detail.
 
+.. _entities-description:
+
 Entities
 --------
 
