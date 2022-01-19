@@ -19,7 +19,7 @@ in the database.
 See a more complete description in :doc:`schema`
 
 In short, each entity type has its own `_header`, `_revision` and `_data` tables
-(i.e `author_header`,`author_revision`,`author_data`). The `_header` points to
+(i.e `author_header`, `author_revision`, `author_data`). The `_header` points to
 the latest `_revision`(each modification of one or more entities creates a new revision),
 and the _revision points to the `_data` for that revision.
 An additional revision_parent table allows us to keep a tree of modifications.
