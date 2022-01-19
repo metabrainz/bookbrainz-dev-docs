@@ -18,6 +18,8 @@ Contents
 ========
 
 .. toctree::
+   :maxdepth: 2
+
    docs/installation
    docs/musicbrainz
    docs/schema
