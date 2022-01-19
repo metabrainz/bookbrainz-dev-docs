@@ -23,5 +23,6 @@ Contents
    docs/installation
    docs/musicbrainz
    docs/schema
+   docs/ORM
    docs/webservice
    docs/editing
