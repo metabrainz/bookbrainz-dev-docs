@@ -18,8 +18,36 @@ objects as entities, and each of these has its own particular associated data.
 In the following section, we'll go through the database structures used to
 represent entities, and talk about each type of entity in more detail.
 
-There are 6 entity types in the BookBrainz world: Author, Work, Edition Group, Edition, Publisher and Series.
-For a description of each entity, see https://bookbrainz.org/help.
+Entities
+--------
+
+.. figure:: /_static/entity_relationships.svg
+   :align: center
+   :alt: BookBrainz entity types
+   
+   There are 6 entity types in the BookBrainz world:
+   Author, Work, Edition Group, Edition, Publisher and Series.
+
+* **Author**
+   | An individual, group or collective that participates in the creative process of an artistic work.
+   | It also includes translators, illustrators, editors, etc.
+
+* **Work**
+   | A distinct intellectual or artistic creation expressed in words and/or images.
+   | Here we are not talking, for example, about a physical book, but the introduction, story, illustrations, etc. it contains.
+   | Examples: novel, poem, translation, introduction & foreword, article, research paper, etc.
+
+* **Edition**
+   A published physical or digital version of one or more Works.
+   Examples: book, anthology, comic book, magazine, leaflet
+   .. note:: An Author can self-publish an Edition
+
+* **Edition Group**
+   A logical grouping of different Editions of the same book.
+   Example: paperback, hardcover and e-book editions of a novel
+
+* **Publisher**
+   A publishing company or imprint
 
 Entity and Entity Redirect
 --------------------------
@@ -139,7 +167,10 @@ The other columns of identifier_type are used for detecting and displaying purpo
    
 Relationship sets
 -----------------
-Relationships are of a specific type (a relationship_type referred to by id) that describes the relationship, the entity type expected on either side of the relationship, and the phrases to use to represent the relationship from either direction (i.e: “Author X wrote Work Y” and “Work Y was written by AuthorX”).
+Relationships are of a specific type (a relationship_type referred to by id)
+that describes the relationship, the entity type expected on either side of the relationship,
+and the phrases to use to represent the relationship from either direction
+(i.e: “Author X wrote Work Y” and “Work Y was written by AuthorX”).
 
 .. figure:: ../_static/schema_diagrams/relationship.png
    :align: center
@@ -178,11 +209,14 @@ Author credits
    :align: right
    :scale: 40%
 
-Author credits allows us to define how authors are credited in an Edition (as on the book cover), without having to create separate Author entities for each pen name or name variation.
+Author credits allows us to define how authors are credited in an Edition (as on the book cover),
+without having to create separate Author entities for each pen name or name variation.
 
-For example, Howard Phillips Lovecraft published under the names “H.P. Lovecraft” most notoriously, but you will find some Editions use the full name “Howard Phillips Lovecraft”
+For example, Howard Phillips Lovecraft published under the names “H.P. Lovecraft” most notoriously,
+but you will find some Editions use the full name “Howard Phillips Lovecraft”
 
-The author credits are composed of one or more authors. For each author, an author_credit_name is created with the author’s BBID, name as credited and position, as well as a short phrase to join them with the next author.
+The author credits are composed of one or more authors. For each author, an author_credit_name
+is created with the author’s BBID, name as credited and position, as well as a short phrase to join them with the next author.
 
 For example if a book cover features “by John and Jane Doe”, you would enter:
 Position 1: John Doe’s BBID - name: “by John” - join phrase “and ”
