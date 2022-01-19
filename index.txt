@@ -18,7 +18,8 @@ Contents
 ========
 
 .. toctree::
-   docs/schema
+   docs/installation
    docs/musicbrainz
+   docs/schema
    docs/webservice
    docs/editing
