@@ -1,6 +1,6 @@
-#####################
+#########################
 BookBrainz Webservice/API
-#####################
+#########################
 
 The BookBrainz API (currently in beta) provides developers with a way to make programs which
 use BookBrainz data.

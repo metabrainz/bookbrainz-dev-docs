@@ -18,13 +18,13 @@ is stored in the database. To make this possible, we have a number of additional
 in the database.
 See a more complete description in :doc:`schema`
 
-In short, each entity type has its own `_header`, `_revision` and `_data` tables
-(i.e `author_header`, `author_revision`, `author_data`). The `_header` points to
-the latest `_revision`(each modification of one or more entities creates a new revision),
-and the _revision points to the `_data` for that revision.
+In short, each entity type has its own ``_header``, ``_revision`` and ``_data`` tables
+(i.e ``author_header``, ``author_revision``, ``author_data``). The ``_header`` points to
+the latest ``_revision``(each modification of one or more entities creates a new revision),
+and the _revision points to the ``_data`` for that revision.
 An additional revision_parent table allows us to keep a tree of modifications.
 
-In additions to the versioning system, `deleting` an entity in BookBrainz is only ever a "soft delete",
+In additions to the versioning system, "deleting" an entity in BookBrainz is only ever a "soft delete",
 meaning we mark the entity as deleted but keep all their editing history.
 This allows us to resurect 'deleted' entities if need be.
 
@@ -32,12 +32,12 @@ Aliases
 =======
 
 Each entity has an Alias Set containing one or more aliases. An entity's 'name' as well as other names
-(authors' aliases, names in other languages and scripts, etc.) are all represented with the same `alias` table.
+(authors' aliases, names in other languages and scripts, etc.) are all represented with the same ``alias`` table.
 For convenience and ease of access, an entity will store its "default" alias ID to avoid having to fetch the Alias Set.
 
 Sets
 ====
-Inside that data, some elements like aliases (names), relationships and identifiers come in `sets`.
+Inside that data, some elements like aliases (names), relationships and identifiers come in ``sets``.
 A set contains one or more element; any change to the elements contained in the set (modification, addition or deletion)
 creates a new set. That new set contains the unchanged elements as well as new elements for any modified item.
 

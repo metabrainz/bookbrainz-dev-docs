@@ -61,8 +61,9 @@ one entity was merged into a second entity, then a row would be created in the
 
 .. figure:: /_static/schema_diagrams/entity.png
    :align: center
+   :alt: The entity table and its relationships
 
-   **The entity table and its relationships.**
+   The entity table and its relationships
 
 Versioning
 ----------
@@ -72,16 +73,17 @@ is stored in the database. To make this possible, we have a number of additional
 in the database.
 For an explanation, let’s take the example of an Author entity.
 
-The ‘entity’ table, common to all entity types, describes the BBID (unique identifier, will never change) and type of an entity.
-Each entity type has its own `_header` and `_revision` tables, in this case ‘author_header’ and ‘author_revision’.
-The ‘author_header’ table tells us what is the master –or latest– revision of that Author entity
+The ``entity`` table, common to all entity types, describes the BBID (unique identifier, will never change) and type of an entity.
+Each entity type has its own ``_header`` and ``_revision`` tables, in this case ``author_header`` and ``author_revision``.
+The ``author_header`` table tells us what is the master –or latest– revision of that Author entity
 
-The `author_revision` entry points to the `author_data` table representing the state of that entity at that revision.
+The ``author_revision`` entry points to the ``author_data`` table representing the state of that entity at that revision.
 Each time a user modifies one or more entities, a new revision is created for each entity modified.
 That includes adding or modifying a relationship between two entities.
 
 .. figure:: ../_static/schema_diagrams/author_header.png
    :align: center
+   :alt: The main tables for Author entities
 
    The main tables for Author entities
 
@@ -93,13 +95,15 @@ A revision represents a set of changes to one or more entities.
 
 If you change an Author’s date of birth, your revision will have the same ID as one single author_revision, which represents the state of that entity at that time.
 
-If, for example, you create a relationship between an Author and a Work (i.e. Author X wrote Work Y), you will have a single revision, but you will find an author_revision AND a work_revision with the same ID as the revision.
-This tells us that unit of change concerns the two entities, and each *entity*_revision represents that entity’s state after that change.
+If for example you create a relationship between an Author and a Work ("Author X wrote Work Y"), you will have a single revision
+but you will find an ``author_revision`` AND a ``work_revision`` with the same ID as the revision.
+This tells us that unit of change concerns the two entities, and each ``*$entity*_revision`` represents that entity’s state after that change.
 
 Following me so far?
 
 .. figure:: ../_static/schema_diagrams/revision_schema.png
    :align: center
+   :alt: The revision table and associated tables
 
    The revision table and associated tables
 
@@ -109,6 +113,7 @@ Entity revision
 
 .. figure:: ../_static/schema_diagrams/author_revision_schema.png
    :align: right
+   :alt: An author_revision in action
 
    An author_revision in action
 
@@ -118,7 +123,7 @@ This ID links to an entry in the author_data table that describes the state of t
 Revision parent
 ---------------
 
-The ‘revision_parent’ table allows us to reconstruct the history of all the edits that have changed an entity,
+The ``revision_parent`` table allows us to reconstruct the history of all the edits that have changed an entity,
 inspect it at any given time, and even revert past edits.
 When a new revision is created, it stores a reference to the previous revision.
 For merge revisions, it will store a reference to the revisions of each entity being merged.
@@ -128,10 +133,11 @@ Entity data
 ===========
 
 Some of the information is stored directly in that author_data table, and some other information are stored separately.
-Each entity uses *sets* to represent multiple values that might change over time: aliases (or names), identifiers (ID of that entity in other systems like wikidata), and relationships.
+Each entity uses *sets* to represent groups of items: aliases (or names), identifiers (ID of that entity in other systems like wikidata), and relationships, languages, etc.
 
 .. figure:: ../_static/schema_diagrams/author_data.png
    :align: right
+   :alt: Overview of the author_data associated tables
 
    Overview of the author_data associated tables
 
@@ -144,6 +150,7 @@ There is a default_alias_id stored for each alias_set that points to one alias, 
 
 .. figure:: ../_static/schema_diagrams/alias_set.png
    :align: center
+   :alt: An alias and the set it belongs to
 
    An alias and the set it belongs to
 
@@ -164,8 +171,9 @@ The set is comprised of identifiers each of a type_id that refers to the identif
 The entity_type must correspond to the Entity’s type.
 The other columns of identifier_type are used for detecting and displaying purposes on the front-end and API.
 
-.. figure:: ../_static/schema_diagrams/identifier_sets.png
+.. image:: ../_static/schema_diagrams/identifier_sets.png
    :align: center
+   :alt: Identifier sets
    
 Relationship sets
 -----------------
@@ -176,6 +184,7 @@ and the phrases to use to represent the relationship from either direction
 
 .. figure:: ../_static/schema_diagrams/relationship.png
    :align: center
+   :alt: A relationship set contains relationship entries
 
    A relationship set contains relationship entries
    
@@ -210,6 +219,7 @@ Author credits
 .. figure:: ../_static/schema_diagrams/author_credits.png
    :align: right
    :scale: 40%
+   :alt: Author credits
 
 Author credits allows us to define how authors are credited in an Edition (as on the book cover),
 without having to create separate Author entities for each pen name or name variation.
