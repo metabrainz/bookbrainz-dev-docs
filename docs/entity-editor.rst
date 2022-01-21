@@ -38,8 +38,8 @@ Submission Section
 
 
 
-Adding an Entity Workflow
-==========================
+Adding an Entity
+=================
 
 When we click on an Add Entity button, it takes us to a page with an url like this:
 ``https://bookbrainz.org/{entityType}/create``.
@@ -56,4 +56,8 @@ While creating the markup, it also creates a store for our entity-editor, with a
 * submissionSectionReducer
 
 
+Editing an Entity
+==================
 
+Merging Entities
+===================
