@@ -133,26 +133,39 @@ Entity data
 ===========
 
 Some of the information is stored directly in that author_data table, and some other information are stored separately.
-Each entity uses *sets* to represent groups of items: aliases (or names), identifiers (ID of that entity in other systems like wikidata), and relationships, languages, etc.
 
 .. figure:: ../_static/schema_diagrams/author_data.png
    :align: right
    :alt: Overview of the author_data associated tables
 
    Overview of the author_data associated tables
+   
+Sets
+----
 
-Alias sets
-----------
-Aliases are stored each separately, and combined to form an alias_set.
-This represents the various names of an entity.
-For example, an Author could have their birth name, a pen name, their name in various other languages, etc.
-There is a default_alias_id stored for each alias_set that points to one alias, as a shortcut if you only needs the main name of an entity.
+Each entity uses *sets* to represent groups of items: aliases (or names), identifiers (ID of that entity in other systems like wikidata),
+relationships, languages, etc.
+Sets allow us to modify some data while keeping the rest untouched, which is necessary for our versioning system.
+For example deleting an item from a set will create a new set but the removed element still exists and is still part of the previous set.
+
+Each set type is comprised of three tables:
+
+1. XXXXX: the table of elements of type XXXXX (for example ``alias``)
+2. XXXXX_set: the table of sets of type XXXXX (for example ``alias_set``)
+3. XXXXX_sets_XXXXX: the table that links elements to a specific set (for example ``alias_set__alias``)
 
 .. figure:: ../_static/schema_diagrams/alias_set.png
    :align: center
    :alt: An alias and the set it belongs to
 
    An alias and the set it belongs to
+
+Alias sets
+++++++++++
+Aliases are stored each separately, and combined to form an alias_set.
+This represents the various names of an entity.
+For example, an Author could have their birth name, a pen name, their name in various other languages, etc.
+There is a default_alias_id stored for each alias_set that points to one alias, as a shortcut if you only needs the main name of an entity.
 
 When an alias is added to an entity, a new alias_set is created that will contain the previous unchanged aliases as well as the new alias.
 
@@ -162,7 +175,7 @@ That means if we want to revert the change, the previous revision contains a ref
 You will find the same structure for identifier sets and relationship sets.
 
 Identifier sets
----------------
++++++++++++++++
 Identifiers represent the ID of the entity in another system (wikidata, musicbrainz, openlibrary, etc.).
 An entity can have an identifier set, represented by an id linking to  row in the identifier_set__identifier table, which links a set to the identifiers that comprise it.
 That way, when adding a new identifier, a new set is created but the existing identifiers are not modified.
@@ -176,7 +189,7 @@ The other columns of identifier_type are used for detecting and displaying purpo
    :alt: Identifier sets
    
 Relationship sets
------------------
++++++++++++++++++
 Relationships are of a specific type (a relationship_type referred to by id)
 that describes the relationship, the entity type expected on either side of the relationship,
 and the phrases to use to represent the relationship from either direction
@@ -187,7 +200,13 @@ and the phrases to use to represent the relationship from either direction
    :alt: A relationship set contains relationship entries
 
    A relationship set contains relationship entries
-   
+
+Publisher sets and release event sets
++++++++++++++++++++++++++++++++++++++
+
+These sets are used solely for the Edition entities
+The publisher sets don't have an associated ``publisher`` table like other sets.
+Instead, the ``publisher_set__publisher`` table links a publisher_set to the BBID of a Publisher entity
 
 Additional Tables
 -----------------
