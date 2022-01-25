@@ -7,7 +7,7 @@ Introduction
 
 In Bookbrainz, a set of information about a particular author, book, publication, magazine, etc. is referred to as an *Entity*, and the form which we use to add/edit this information is called the **Entity-Editor**.
 There are 6 entity types in the BookBrainz world: Author, Work, Edition Group, Edition, Publisher and Series.
-For a better description of each entity see :ref:`entities-description`.
+For a better description of each entity, see :ref:`entities-description`.
 
 The code for the entity editor can be found in ``src/client/entity-editor``.
 The entity-editor has been divided into different sections, and each of these sections have a folder within this directory.
@@ -44,7 +44,12 @@ Adding an Entity
 
 When we click on an Add Entity button, it takes us to a page with an url like this:
 ``https://bookbrainz.org/{entityType}/create``.
-We make use of this ``entityType`` to generate the entity-specific markup for our entity-editor. 
+We make use of this ``entityType`` to generate the entity-specific markup for our entity-editor.
+
+While creating the entity specific markup for our entity-editor, we also inject certain props into our entity-editor. 
+We make use of middlewares to load ``languageTypes``, ``identifierTypes``, and ``relationshipTypes`` specific to the entity we are going to add. 
+We might also need to load some entity-specific props, for example, in case of Work entity, we load ``workTypes`` too.
+
 While creating the markup, it also creates a store for our entity-editor, with a *rootReducer* which consists of a combination of reducers, each concerned with a particular section of the entity-editor namely:
 
 * aliasEditorReducer
@@ -72,7 +77,7 @@ The initial state for Name-section can be seen by looking at the reducer file in
             })
 
 Here, the fields ``disambiguation``, ``name``, ``sortName`` and ``language`` are self-explanatory. 
-Whenever, we start entering any name in the Name field, we use the onChange event handler to fire off 4 different actions:
+Whenever we start entering any name in the Name field, we use the onChange event handler to fire off 4 different actions:
 
 * ``onNameChange``: this updates the *nameValue*.
 * ``onNameChangeSearchName``: as we enter the name, we try to seach the nameValue in our database in order to let the user see whether the entity already exists in our database. This updates the search term and adds the results in *searchResults*.
@@ -81,11 +86,55 @@ Whenever, we start entering any name in the Name field, we use the onChange even
 
 Similarly, appropriate eventHandlers and actions are present for updating the value of *Sort Name* field, *Language*, and *Disambiguation*.
 
-Hence, a similar pattern is followed on all the other sections of the entity-editor, where we make use of onChange event handlers for a particular field, to fire off the action which subsequently uses dispatch to update its corresponding field in the state.
+Hence, a similar pattern is followed on all the other sections of the entity-editor, where we make use of onChange event handlers for a particular field, to fire off an action with the help of the dispatch function to update its corresponding field in the state.
 
     
 The Relationship Editor
 -------------------------
+
+Any type of connection between two entities in BookBrainz is called a relationship. We make use of a Modal to add relationships to the entity we are adding. 
+
+
+The relationship section is concerned with two main tasks:
+
+* Providing an **Add Relationship** button to open a Modal which acts as our relationship-editor. The relevant code for this is present in ``src/client/entity-editor/relationship-editor/relationship-editor.tsx``
+* Rendering a list of already added relationships. This is done with the help of *RelationshipList* component present in ``src/client/entity-editor/relationship-editor/relationship-section.tsx``
+
+
+We make use of ``relationshipEditorVisible`` flag to toggle the Relationship editor modal. Within the relationship editor modal, there are two fields:
+
+**Entity Select field** : The *renderEntitySelect* function deals with this field. Here ``baseEntity`` is the entity which is being edited. The ``EntitySearchFieldOption`` allows us to search for any existing entity which we would like to link to our current *baseEntity*.
+
+We can apply some additional filters to our search, so as to the optimize search results. For example, in case of a Series entity of type X, we dont need to display search results with entities which are not of the same time.
+When we select an entity from the Search results, it gets stored as ``targetEntity``.
+
+**RelationshipType Select field** : After selecting a targetEntity, we make use of a function called ``generateRelationshipSelection`` which takes our relationshipTypes object which was passed as a prop to our entity-editor, the baseEntity, and the targetEntity.
+This function then tries to generate all possible relationships which between the two entities. We can then select the Relationship Type for our entity using the RelationshipSelect field in the editor. This sets the value of ``relationship`` and ``relationsipType`` of our state.
+
+
+When we click on Add, we pass the ``relationship`` object to the following action: 
+::
+    let nextRowID = 0;
+    export function addRelationship(data: Relationship): Action {
+        return {
+            payload: {data, rowID: `n${nextRowID++}`},
+            type: ADD_RELATIONSHIP
+        };
+    }
+
+Here the data is the ``relationship`` object we passed from our Relationship Editor props. In the payload for this action, we also pass a ``rowID``.
+This is then added to the ``relationships`` object, with the ``rowId`` acting as a key for the mapping.
+
+
+As we keep on adding relationships, they are rendered as a list on the entity-editor with the help of the aforementioned RelationshipList component. We can still edit and remove these relationships from the list.
+If we click the edit button next to a particular relationship, it opens up the relationship modal with the ``relationship`` object passed as prop to the relationshipEditor.
+
+
+Submission Section
+---------------------
+When we click on submit, the entire state of the form(rootState) is sent to an appropriate *createHandler*(``{entityType}/create/handler``). If all goes well, we are redirected to the Display Page of our current entity.
+
+
 
 
 Editing an Entity
