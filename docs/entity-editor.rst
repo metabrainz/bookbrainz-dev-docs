@@ -48,7 +48,7 @@ When we click on an Add Entity button, it takes us to a page with an url like th
 We make use of this ``entityType`` to generate the entity-specific markup for our entity-editor.
 The `/create` routes are created separately for each entity type, each having a file in the `src/server/routes/entity folder <https://github.com/metabrainz/bookbrainz-site/tree/master/src/server/routes/entity>`_.
 
-While creating the entity specific markup for our entity-editor, we also inject certain props into our entity-editor. 
+While creating the entity specific markup for our entity-editor, we also inject certain props into our entity-editor.
 We make use of `router-level middleware <https://expressjs.com/en/guide/using-middleware.html#middleware.router>`_ to load ``languageTypes``, ``identifierTypes``, and ``relationshipTypes`` specific to the entity we are going to add. We might also need to load some entity-specific props, for example, in case of Work entity, we load ``workTypes`` too.
 
 While creating the markup, it also creates a Redux store for our entity-editor, with a *rootReducer* which consists of a combination of reducers, each concerned with a particular section of the entity-editor namely:
@@ -64,9 +64,9 @@ While creating the markup, it also creates a Redux store for our entity-editor, 
 
 Let us take an example how we make use of actions and reducers in our entity-editor by describing the workflow for the **Name-Section** of the entity editor.
 
-You can take a look at the initial state of a particular section by looking at the reducer in its directory. 
+You can take a look at the initial state of a particular section by looking at the reducer in its directory.
 
-The initial state for Name-section can be seen by looking at the reducer file in `src/client/entity-editor/name-section/reducer.js <https://github.com/metabrainz/bookbrainz-site/tree/master/src/client/entity-editor/name-section/reducer.js>`_. The initial state looks like this: 
+The initial state for Name-section can be seen by looking at the reducer file in `src/client/entity-editor/name-section/reducer.js <https://github.com/metabrainz/bookbrainz-site/tree/master/src/client/entity-editor/name-section/reducer.js>`_. The initial state looks like this:
 ::
     state = Immutable.Map({
                 disambiguation: '',
@@ -77,7 +77,7 @@ The initial state for Name-section can be seen by looking at the reducer file in
                 sortName: ''
             })
 
-Here, the fields ``disambiguation``, ``name``, ``sortName`` and ``language`` are self-explanatory. 
+Here, the fields ``disambiguation``, ``name``, ``sortName`` and ``language`` are self-explanatory.
 Whenever we start entering any name in the Name field, we use the onChange event handler to fire off 4 different actions:
 
 * ``onNameChange``: this updates the *nameValue*.
@@ -105,13 +105,13 @@ We make use of ``relationshipEditorVisible`` flag to toggle the Relationship edi
 
 **Entity Select field** : The *renderEntitySelect* function deals with this field. Here ``baseEntity`` is the entity which is being edited. The ``EntitySearchFieldOption`` allows us to search for any existing entity which we would like to link to our current *baseEntity*.
 
-We can apply some additional filters to our search, so as to the optimize search results. For example, in case of a Series entity of type X, we dont need to display search results with entities which are not of the same time.
+We can apply some additional filters to our search, so as to the optimize search results. For example, in case of a Series entity of type X, we dont need to display search results with entities which are not of the same type.
 When we select an entity from the Search results, it gets stored as ``targetEntity``.
 
 **RelationshipType Select field** : After selecting a targetEntity, we make use of a function called ``generateRelationshipSelection`` which takes our relationshipTypes object which was passed as a prop to our entity-editor, the baseEntity, and the targetEntity.
 This function returns all combinations of relationship types which are valid between the two entities. We can then select the Relationship Type for our entity using the RelationshipSelect field in the editor. This sets the value of ``relationship`` and ``relationsipType`` of our state.
 
-When we click on Add, we pass the ``relationship`` object to the following action: 
+When we click on Add, we pass the ``relationship`` object to the following action:
 ::
     let nextRowID = 0;
     export function addRelationship(data: Relationship): Action {
@@ -131,7 +131,7 @@ If we click the edit button next to a particular relationship, it opens up the r
 
 Submission Section
 ---------------------
-When we click on submit, the entire state of the form(rootState) is sent to an appropriate *createHandler* (``{entityType}/create/handler``). This route makes use of a utility function  `makeEntityCreateOrEditHandler <https://github.com/metabrainz/bookbrainz-site/tree/master/src/server/helpers/entityRouteUtils.tsx>`_ which returns a handler function ``handleCreateOrEditEntity`` adapted to the entity type. 
+When we click on submit, the entire state of the form(rootState) is sent to an appropriate *createHandler* (``{entityType}/create/handler``). This route makes use of a utility function  `makeEntityCreateOrEditHandler <https://github.com/metabrainz/bookbrainz-site/tree/master/src/server/helpers/entityRouteUtils.tsx>`_ which returns a handler function ``handleCreateOrEditEntity`` adapted to the entity type.
 
 The *rootState* is then validated using the validators for that entity type.
 After this, the *rootState* is manipulated to be in a certain format by the ``transformNewForm`` function in each entity's route definitions file (``src/server/routes/entity/{entityType}``).
