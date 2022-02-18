@@ -27,6 +27,7 @@ Contents of this documentation
    docs/editing
    docs/entity-editor
    docs/troubleshooting
+   docs/seeding
 
 Our repositories
 ================
