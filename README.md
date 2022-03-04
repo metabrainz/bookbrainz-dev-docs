@@ -1,5 +1,5 @@
 The developer documentation for the BookBrainz project, written in reStructuredText and
-hosted on readthedocs.org.
+hosted on Read the Docs: https://bookbrainz-dev-docs.readthedocs.io/
 
 Further Information
 -------------------
