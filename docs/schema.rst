@@ -44,6 +44,10 @@ Entities
    Examples: book, anthology, comic book, magazine, leaflet
    .. note:: An Author can self-publish an Edition
 
+* **Series**
+   | A set or sequence of related works, editions, authors, publishers or edition-groups.
+   | Examples: a series of novels, a series of comics, etc.
+
 * **Edition Group**
    A logical grouping of different Editions of the same book.
    Example: paperback, hardcover and e-book editions of a novel
