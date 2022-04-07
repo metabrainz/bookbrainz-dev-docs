@@ -1,5 +1,5 @@
 
-Running docker inside WSL
+Run docker inside WSL
 ###################################
 
 **First make sure Windows is up-to-date**
