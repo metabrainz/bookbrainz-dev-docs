@@ -67,7 +67,8 @@ You'll need to install Docker and Docker-compose on your development machine:
 *  `Docker-compose`_
 
 .. important:: 
-  We recommended Windows users to run `docker inside WSL <https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers>`_ (preferbly WSL2) to avoid any compatibility issues.
+  
+  We recommended Windows users to :doc:`docker-setup` (preferbly WSL2) to avoid any compatibility issues.
   
 When it is installed, follow the below instructions step by step.
 
