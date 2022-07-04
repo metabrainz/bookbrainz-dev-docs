@@ -103,6 +103,18 @@ Make changes to the code in the ``src`` folder and run ``./develop.sh`` again to
 
 Once you are done developing, you can stop the dependencies running inside docker in the background by running ``./stop.sh``.
 
+Search server setup
+===================
+
+In order for searching to work on your local server, you will need to index the contents of the database.
+
+1. first, ensure that Elasticsearch is running.
+2. add your user name (if you haven't created a user yet, `now is the time! <https://musicbrainz.org/doc/How_to_Create_an_Account>`) to the array of ``trustedUsers`` in the ``src/server/routes/search.js`` file
+3. with that done and the server (re)started, navigate to ``localhost:9099/search/reindex``
+    Reindexing will take a few minutes depending on your resources, and you can expect that the browser window will time out before the reindexing is done.
+    However the process will continue in the background and after a little while the search indices will be created.
+4. You can now try searching for an entity on the page ``localhost:9099/search``
+
 Advance Users
 =============
 To improve your developer experience, here are some things we suggest you should do
