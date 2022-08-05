@@ -1,6 +1,7 @@
 .. _DockerGettingStarted: https://docs.docker.com/get-started/
 .. _MonkeyDo/Lobes: https://github.com/MonkeyDo/lobes
 .. _MusicBrainz: https://musicbrainz.org/account/applications
+.. _CritiqueBrainz: https://critiquebrainz.org/profile/applications/
 .. _Docker: https://docs.docker.com/install/
 .. _Docker-Compose: https://docs.docker.com/compose/install/
 
@@ -54,6 +55,11 @@ If you want to be able to sign-up and edit, you will need to set up authenticati
 To get the ``clientID`` and ``clientSecret`` tokens, head to `MusicBrainz`_ and register a new developer application.
 
 Make sure to enter the callback URL as ``http://localhost:<port>/cb`` (port: 9099 by default).
+
+If you want to review the entities, you will need to set up authentication under ``critiquebrainz``.
+To get the ``clientID`` and ``clientSecret`` tokens, head to `CritiqueBrainz`_ and register a new developer application.
+
+Make sure to enter the homepage URL as ``http://localhost:<port>/`` and callback URL as ``http://localhost:<port>/external-service/critiquebrainz/callback`` (port: 9099 by default).
 
 You can then copy the tokens for that developer application and paste as strings in your ``config/config.json``. The tokens and callback URL in your ``config/config.json`` needs to match exactly the one for the developer application.
 
