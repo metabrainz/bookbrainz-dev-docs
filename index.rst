@@ -26,6 +26,7 @@ Contents of this documentation
    docs/webservice
    docs/editing
    docs/entity-editor
+   docs/unified-form
    docs/troubleshooting
 
 Our repositories
