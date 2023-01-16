@@ -78,10 +78,6 @@ You'll need to install Docker and Docker-compose on your development machine:
   
 When it is installed, follow the below instructions step by step.
 
-.. note:: 
-  If you are using docker-toolbox you need to replace `elasticsearch:9200 <https://github.com/metabrainz/bookbrainz-site/blob/master/config/config.json.example#L30>`_ with ip address of your docker-machine in config.json.
-  To get ip address of your docker machine use command ``docker-machine ip default``
-
 Database set-up
 ***************
 When you first start working with BookBrainz, you will need to perform some initialization for PostgreSQL and import the latest BookBrainz database dump.
