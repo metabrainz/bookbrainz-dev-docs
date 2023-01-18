@@ -163,6 +163,32 @@ There are VSCode configuration files (in the ``.vscode`` folder) for running bot
 see what is happening as the code executes. Make sure the dependencies (postgres, redis, elasticsearch) are running, and 
 you can just open the debugger tray in VSCode, select 'Launch Program' and click the button!
 
+If you're using Docker and our ``./develop.sh`` script, you will need to modify the ``docker-compose.yml`` file and change a few things on the ``bookbrainz-site`` service defined there.
+Make sure, you have the `Docker <https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker>`_ extension installed.
+
+1. Change the bookbrainz-site service's ``command`` to
+
+* ``yarn run debug --inspect=0.0.0.0:9229`` if you only want to change client files (in ``src/client``)
+* ``yarn run debug-watch-server --inspect=0.0.0.0:9229`` if you also want to modify server files (in ``src/server``)
+
+2. Add ``9229:9229`` to ``ports``, for the Docker container to expose port 9229.
+
+For example:
+
+::
+
+    services:
+      bookbrainz-site:
+      # 1. Change the command to run
+        command: yarn run debug --inspect=0.0.0.0:9229
+        ports:
+          - "9099:9099"
+      # 2. Expose the port
+          - "9229:9229"
+
+
+That's it, now you can just open the debugger tray in VSCode, select 'Docker: Attach to Node ' and click the button!
+
 Testing
 =======
 The test suite is built using `Mocha <https://mochajs.org/>`_ and `Chai <https://www.chaijs.com/>`_. Before running the tests, you will need to set up a ``bookbrainz_test`` database in postgres. Here are the instructions to do so:
