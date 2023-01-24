@@ -308,9 +308,7 @@ That's it, now you can just open the debugger tray in VSCode, select 'Docker: At
 Running the code with VSCode
 ----------------------------
 
-There are VSCode configuration files (in the ``.vscode`` folder) for running both the server and the tests, useful in both cases to debug into the code and 
-see what is happening as the code executes. Make sure the dependencies (postgres, redis, elasticsearch) are running, and 
-you can just open the debugger tray in VSCode, select 'Launch Program' and click the button!
+There are VSCode configuration files (in the ``.vscode`` folder) for running both the server and the tests, useful in both cases to debug into the code and see what is happening as the code executes. Make sure the dependencies (postgres, redis, elasticsearch) are running, and you can just open the debugger tray in VSCode, select 'Launch Program' and click the button!
 
 Testing
 =======
