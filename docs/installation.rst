@@ -105,6 +105,125 @@ Make changes to the code in the ``src`` folder and run ``./develop.sh`` again to
 
 Once you are done developing, you can stop the dependencies running inside docker in the background by running ``./stop.sh``.
 
+
+Manual Installation
+===================
+
+If you do not want to use Docker (``./develop.sh``) to run the server on your machine, you can run the server code manually (regardless of whether you are running dependencies (database, search,…) with Docker or you are running them manually)
+So for setting up and running the NodeJS server outside of Docker -
+
+**Installing NodeJS**
+To install NodeJS, follow the instruction for your operating system on the `official website <https://nodejs.org/en/download/>`_.
+
+**Installing Packages**
+The site depends on a number of node packages which can be installed using yarn (or npm):
+
+::
+
+    cd bookbrainz-site/
+    yarn install
+
+This command will also compile the site LESS and JavaScript source files.
+
+**Configuration**
+
+Our ``config.example.json`` is set up to work out of the box running everything in Docker. Addresses for the dependencies refer to docker container names, so that containers can communicate with each other.
+
+For local development (run outside of Docker), make a copy of `config/config.local.json.example` and [fill up the musicbrainz tokens](README.md#configuration). You can then pass this configuration file when running the server locally using `--config` flag.
+For example, ``yarn start -- --config ./config/config.local.json`` will use ``./config/config.local.json`` config instead of the Default config (``config.json`` for Docker).
+
+
+**Building and running**
+A number of subcommands exist to manage the installation and run the server.
+These are described here; any commands not listed should not be called directly:
+
+* start - start the server in production mode, with code built once
+* debug - start the server in debug mode, with code watched for changes
+* lint - check the code for syntax and style issues
+* test - perform linting and attempt to compile the code
+* jsdoc - build the documentation for JSDoc annotated functions within the
+  code 
+
+
+Installing dependencies manually 
+********************************
+If you don't want to use Docker for the dependencies, here are the steps you will need to take to get your local environment up and running.
+
+**PostgreSQL**
+BookBrainz uses version 12.3.To get PostgreSQL, use one of the following commands:
+
+Debian-based OS
+::
+
+    sudo apt-get install postgresql
+
+Red Hat-based OS
+::
+
+    sudo yum install postgresql-server
+
+**Redis**
+To install Redis, run similar commands to get the dependency from your package
+manager:
+
+Debian-based OS
+::
+
+    sudo apt-get install redis-server
+
+Red Hat-based OS
+::
+
+    sudo yum install redis
+
+
+**Elasticsearch**
+
+To install Elasticsearch, follow `this helpful guide <https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-16-04) for Linux-based systems or the [official instructions](
+https://www.elastic.co/guide/en/elasticsearch/reference/6.3/install-elasticsearch.html>`_.
+
+The BookBrainz server has been tested with ElasticSearch version 6.3.2.
+
+Setting up Dependencies
+
+No setup is required for Redis or Elasticsearch. However, it is necessary to
+perform some initialization for PostgreSQL and import the latest BookBrainz
+database dump.
+
+Firstly, begin downloading the `latest BookBrainz dump <http://ftp.musicbrainz.org/pub/musicbrainz/bookbrainz/latest.sql.bz2>`_.
+
+Then, uncompress the ``latest.sql.bz2`` file, using the bzip2 command:
+::
+
+    bzip2 -d latest.sql.bz2
+
+This will give you a file that you can restore into PostgreSQL, which will
+set up data identical to the data we have on the bookbrainz.org website. First, you must create the necessary role and database with these two commands:
+::
+
+    psql -h localhost -U postgres --command="CREATE ROLE bookbrainz"	
+    psql -h localhost -U postgres --command="CREATE DATABASE bookbrainz"
+
+Then you can restore the database from the lates dump you dowloaded. To do this, run:
+::
+
+    psql -h localhost -U postgres -d bookbrainz -f latest.sql
+
+At this point, the database is set up, and the following command should give you a list of usernames of BookBrainz editors (after entering the password from earlier):
+::
+
+    psql -h localhost -U postgres bookbrainz --command="SELECT name FROM bookbrainz.editor"
+
+You are also required to set the password of your local PostgreSQL instance.
+You can do this by
+::
+
+    psql -h localhost -U postgres
+
+    postgres=# \password
+
+This will set the password to your PostgreSQL, which you will need to set in the `config/config.json` database section.
+
 Search server setup
 ===================
 
@@ -154,16 +273,13 @@ For example:
 Debugging with VSCode
 *********************
 You can use VSCode to run the server or API and take advantage of its debugger, an invaluable tool I highly recommend you learn to use.
-
 This will allow you to put breakpoints to stop and inspect the code and variables during its execution, advance code execution line by line and step into function calls, instead of putting console.log calls everywhere.
 
 `Here <https://www.youtube.com/watch?v=yFtU6_UaOtA>`_ is a good introduction to debugging javascript in VSCode.
 
-There are VSCode configuration files (in the ``.vscode`` folder) for running both the server and the tests, useful in both cases to debug into the code and 
-see what is happening as the code executes. Make sure the dependencies (postgres, redis, elasticsearch) are running, and 
-you can just open the debugger tray in VSCode, select 'Launch Program' and click the button!
-
-If you're using Docker and our ``./develop.sh`` script, you will need to modify the ``docker-compose.yml`` file and change a few things on the ``bookbrainz-site`` service defined there.
+Running the code with Docker
+----------------------------
+If you're using Docker with our ``./develop.sh`` script, you will need to modify the ``docker-compose.yml`` file and change a few things on the ``bookbrainz-site`` service defined there.
 Make sure, you have the `Docker <https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker>`_ extension installed.
 
 1. Change the bookbrainz-site service's ``command`` to
@@ -188,6 +304,13 @@ For example:
 
 
 That's it, now you can just open the debugger tray in VSCode, select 'Docker: Attach to Node ' and click the button!
+
+Running the code with VSCode
+----------------------------
+
+There are VSCode configuration files (in the ``.vscode`` folder) for running both the server and the tests, useful in both cases to debug into the code and 
+see what is happening as the code executes. Make sure the dependencies (postgres, redis, elasticsearch) are running, and 
+you can just open the debugger tray in VSCode, select 'Launch Program' and click the button!
 
 Testing
 =======
