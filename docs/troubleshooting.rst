@@ -84,6 +84,46 @@ Redis
 
     /etc/init.d/redis-server stop
 
+* Sometimes the port 6379 on which redis server runs is used by TCP. So to terminate this process run.
+  ::
+    
+    sudo kill sudo 'lsof -t -i:5432'
+
+PostgreSQL
+==========
+
+    1. After instaling, the username will be made by the machine.
+       To set the password of SQL (You'll need this later), run
+      ::
+        
+        sudo -u postgres psql
+
+      then
+
+      ::
+
+        psql (12.3)
+        Type "help" for help.
+
+        postgres=# \password
+        Enter new password:
+      
+
+    - To figure out the username, do
+
+        ``sudo psql -U postgres -W -h localhost``
+
+      then
+
+        ``Password for user <username>: ``
+	
+	    will appear.
+      Use the username for the config later on config.json.
+
+    2. Sometimes you may get an error of port 5432 being used when you run ``./develop.sh``. This is because postgres is already on and you need to stop it first so that it can restart. So to get rid of this issue simply run the below command
+
+        ``sudo service postgresql stop``
+
 Node/npm/yarn
 =============
 * When filling out the requirements of BookBrainz, you'll encounter an error that says you'll need to install postgresql-server-dev-X.Y for building a server-side extension or ``libpq-dev`` for building a client-side application To solve this problem, please install ``libpq-dev`` and ``node-gyp``
