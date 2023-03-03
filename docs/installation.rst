@@ -87,6 +87,9 @@ You'll need to install Docker and Docker-Compose on your development machine:
   
 When it is installed, follow the below instructions step by step.
 
+.. note::
+  After a fresh Docker installation, you need ~4GB of disk space for the container images, better more.
+
 Database set-up
 ***************
 
