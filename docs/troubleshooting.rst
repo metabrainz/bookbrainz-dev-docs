@@ -32,6 +32,31 @@ General
    
   Try running ``yarn run build-less`` or ``npm run build-less`` from the project directory.
 
+* ``[/usr/bin/env: 'bash\r': No such file or directory] or [exec scripts/wait-for-postgres.sh: no such file or directory]``
+
+  These errors may occur when running develop.sh or database-init-docker.sh during installation if git or another application
+  has replaced Linux line endings (LF) with Windows line endings (CR LF) in certain .sh files.
+
+  To determine if this is the issue, you may open the .sh files using Notepad++ and check the bottom right corner. If any
+  file's line endings are indicated incorrectly as Windows (CR LF) you can resolve the issue by following these steps:
+
+  1. Navigate to the bookbrainz-site directory and configure git to clone repositories using the original line endings
+  with the following command:
+  ::
+
+     git config --global core.autocrlf input
+
+  2. Delete the bookbrainz-site directory from its parent directory.
+  ::
+
+  3. Clone the bookbrainz repository again using the appropriate command (the URL will be different if cloning from a fork)
+  ::
+
+     git clone --recurse-submodules https://github.com/metabrainz/bookbrainz-site.git
+
+  4. The line endings should now be corrected and you may proceed with following the normal installation procedure.
+  ::
+
 Elasticsearch
 =============
 * Elasticsearch taking too much time?
