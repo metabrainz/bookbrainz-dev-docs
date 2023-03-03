@@ -26,7 +26,7 @@ An additional revision_parent table allows us to keep a tree of modifications.
 
 In additions to the versioning system, "deleting" an entity in BookBrainz is only ever a "soft delete",
 meaning we mark the entity as deleted but keep all their editing history.
-This allows us to resurect 'deleted' entities if need be.
+This allows us to resurrect 'deleted' entities if need be.
 
 Aliases
 =======
@@ -52,7 +52,7 @@ Merging
 =======
 Merging in BookBrainz is very similar to regular edits: we create a new revision for each entity, one of which will contain
 the new aggregated data from the merge. The new revision will be marked as being a merge operation, as well as each author_revision
-(using Authors as an ecample) for each of the merge entity.
+(using Authors as an example) for each of the merge entity.
 
 Let's say we're merging Author B and Author C into Author A. We select the correct value if there are any differences between entities,
 and the sets are combined (we add together the aliases, relationships, and identifiers).

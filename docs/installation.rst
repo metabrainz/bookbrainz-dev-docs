@@ -73,7 +73,7 @@ You can then copy the tokens for that developer application and paste as strings
 
 Docker Installation
 ===================
-The easiest way to get a local developement server running is using Docker. This will save you a fair amount of set up.
+The easiest way to get a local development server running is using Docker. This will save you a fair amount of set up.
 
 You'll need to install Docker and Docker-compose on your development machine:
 
@@ -82,7 +82,7 @@ You'll need to install Docker and Docker-compose on your development machine:
 
 .. important:: 
   
-  We recommended Windows users to :doc:`docker-setup` (preferbly WSL2) to avoid any compatibility issues.
+  We recommended Windows users to :doc:`docker-setup` (preferably WSL2) to avoid any compatibility issues.
   
 When it is installed, follow the below instructions step by step.
 
