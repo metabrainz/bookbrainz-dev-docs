@@ -254,7 +254,7 @@ You may want to use Webpack to build, watch files and inject rebuilt pages witho
 
 If you are running the server manually, you can simply run ``yarn run debug`` in the command line.
 
-If you're using Docker and our ``./develop.sh`` script, you will need to modify the ``docker-compose.yml`` file and change a few things on the ``bookbrainz-site`` service defined there
+If you're using Docker and our ``./develop.sh`` script, you will need to create a custom Compose file and define a few overrides for the ``bookbrainz-site`` service there:
 
 1. Change the bookbrainz-site command to
 
@@ -272,9 +272,20 @@ For example:
       # 1. Change the command to run
         command: yarn run debug
         volumes:
-          - "./config/config.json:/home/bookbrainz/bookbrainz-site/config/config.json:ro"
       # 2. Mount the src directory
           - "./src:/home/bookbrainz/bookbrainz-site/src"
+
+Ideally you save this new Compose file inside the ``local/`` directory, which will be ignored by git, for example as ``local/docker-compose.live-reload.yml``.
+
+Now you have to explicitly tell Docker-Compose which Compose files it should read when the ``./develop.sh`` script is run.
+In addition to the default ``docker-compose.yml`` we also want Compose to read our custom file with the overrides.
+
+We will achieve that by creating a ``.env`` file (in the repository's root directory) which sets the ``COMPOSE_FILE`` environment variable, e.g.
+
+::
+
+    COMPOSE_FILE=docker-compose.yml:local/docker-compose.live-reload.yml
+
 .. warning::
   Using Webpack watch mode (``yarn run debug``) results in more resource consumption (about ~1GB increased RAM usage) compared to running the standard web server.
 
