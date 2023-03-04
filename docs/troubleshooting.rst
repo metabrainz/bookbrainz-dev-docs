@@ -37,8 +37,9 @@ General
   These errors may occur when running develop.sh or database-init-docker.sh during installation if git or another application
   has replaced Linux line endings (LF) with Windows line endings (CR LF) in certain .sh files.
 
-  To determine if this is the issue, you may open the .sh files using Notepad++ and check the bottom right corner. If any
-  file's line endings are indicated incorrectly as Windows (CR LF) you can resolve the issue by following these steps:
+  To determine if this is the issue, you may open the .sh files using an application such as Notepad++ or VS Code and check
+  the bottom right corner. If any file's line endings are indicated incorrectly as Windows (CR LF) you can resolve the issue
+  by following these steps:
 
   1. Navigate to the bookbrainz-site directory and configure git to clone repositories using the original line endings
   with the following command:
