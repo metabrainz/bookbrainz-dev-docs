@@ -21,6 +21,14 @@ BookBrainz depends on having PostgreSQL, Redis, Elasticsearch and NodeJS set up 
 
 But first some basic configuration common to both docker and manual installation.
 
+Forking
+*******
+
+Fork this repository
+
+``https://github.com/metabrainz/bookbrainz-site.git``
+
+
 Cloning
 *******
 
@@ -28,7 +36,7 @@ To clone the repository and point the local HEAD to the latest commit in the sta
 
 ::
     
-    git clone --recurse-submodules https://github.com/metabrainz/bookbrainz-site.git
+    git clone --recurse-submodules https://github.com/<Your_Github_Username>/bookbrainz-site.git
 
 Since this project makes use of git submodules, you need to use ``git clone --recurse-submodules`` to clone it.
 
