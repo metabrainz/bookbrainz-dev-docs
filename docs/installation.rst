@@ -36,7 +36,7 @@ To clone the repository and point the local HEAD to the latest commit in the sta
 
 ::
     
-    git clone --recurse-submodules https://github.com/<Your_Github_Username>/bookbrainz-site.git
+    git clone https://github.com/<Your_Github_Username>/bookbrainz-site.git
 
 Since this project makes use of git submodules, you need to use ``git clone --recurse-submodules`` to clone it.
 
