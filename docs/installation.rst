@@ -38,19 +38,6 @@ To clone the repository and point the local HEAD to the latest commit in the sta
 
     git clone https://github.com/<Your_Github_Username>/bookbrainz-site.git
 
-Since this project makes use of git submodules, you need to use ``git clone --recurse-submodules`` to clone it.
-
-Alternatively, to manually initialize submodules, run these two commands:
-
-::
-
-    git submodule init
-    git submodule update
-
-Currently we are using these submodules:
-
-* `MonkeyDo/Lobes`_ in ``src/client/stylesheets/lobes``
-
 Configuration
 *************
 
