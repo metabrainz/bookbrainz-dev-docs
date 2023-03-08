@@ -126,10 +126,11 @@ Manual Installation
 If you do not want to use Docker (``./develop.sh``) to run the server on your machine, you can run the server code manually (regardless of whether you are running dependencies (database, search,…) with Docker or you are running them manually)
 So for setting up and running the NodeJS server outside of Docker -
 
-**Installing NodeJS**
+Installing NodeJS and Packages
+------------------------------
+
 To install NodeJS, follow the instruction for your operating system on the `official website <https://nodejs.org/en/download/>`_.
 
-**Installing Packages**
 The site depends on a number of node packages which can be installed using yarn (or npm):
 
 ::
@@ -139,7 +140,8 @@ The site depends on a number of node packages which can be installed using yarn 
 
 This command will also compile the site LESS and JavaScript source files.
 
-**Configuration**
+Configuration
+-------------
 
 Our ``config.example.json`` is set up to work out of the box running everything in Docker. Addresses for the dependencies refer to docker container names, so that containers can communicate with each other.
 
@@ -147,7 +149,9 @@ For local development (run outside of Docker), make a copy of `config/config.loc
 For example, ``yarn start -- --config ./config/config.local.json`` will use ``./config/config.local.json`` config instead of the Default config (``config.json`` for Docker).
 
 
-**Building and running**
+Building and running
+--------------------
+
 A number of subcommands exist to manage the installation and run the server.
 These are described here; any commands not listed should not be called directly:
 
@@ -161,10 +165,13 @@ These are described here; any commands not listed should not be called directly:
 
 Installing dependencies manually 
 ********************************
+
 If you don't want to use Docker for the dependencies, here are the steps you will need to take to get your local environment up and running.
 
-**PostgreSQL**
-BookBrainz uses version 12.3.To get PostgreSQL, use one of the following commands:
+PostgreSQL
+----------
+
+BookBrainz uses version 12.3. To get PostgreSQL, use one of the following commands:
 
 Debian-based OS
 ::
@@ -176,7 +183,9 @@ Red Hat-based OS
 
     sudo yum install postgresql-server
 
-**Redis**
+Redis
+-----
+
 To install Redis, run similar commands to get the dependency from your package
 manager:
 
@@ -191,7 +200,8 @@ Red Hat-based OS
     sudo yum install redis
 
 
-**Elasticsearch**
+Elasticsearch
+-------------
 
 To install Elasticsearch, follow `this helpful guide <https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-16-04) for Linux-based systems or the [official instructions](
 https://www.elastic.co/guide/en/elasticsearch/reference/6.3/install-elasticsearch.html>`_.
@@ -199,6 +209,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/6.3/install-elasticsearc
 The BookBrainz server has been tested with ElasticSearch version 6.3.2.
 
 Setting up Dependencies
+-----------------------
 
 No setup is required for Redis or Elasticsearch. However, it is necessary to
 perform some initialization for PostgreSQL and import the latest BookBrainz
@@ -307,6 +318,7 @@ This will allow you to put breakpoints to stop and inspect the code and variable
 
 Running the code with Docker
 ----------------------------
+
 If you're using Docker with our ``./develop.sh`` script, you will need to modify the ``docker-compose.yml`` file and change a few things on the ``bookbrainz-site`` service defined there.
 Make sure, you have the `Docker <https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker>`_ extension installed.
 
@@ -331,7 +343,7 @@ For example:
           - "9229:9229"
 
 
-That's it, now you can just open the debugger tray in VSCode, select 'Docker: Attach to Node ' and click the button!
+That's it, now you can just open the debugger tray in VSCode, select 'Docker: Attach to Node' and click the button!
 
 Running the code with VSCode
 ----------------------------
