@@ -306,8 +306,7 @@ This will allow you to put breakpoints to stop and inspect the code and variable
 Running the code with Docker
 ----------------------------
 
-If you're using Docker with our ``./develop.sh`` script, you will need to modify the ``docker-compose.yml`` file and change a few things on the ``bookbrainz-site`` service defined there.
-Make sure, you have the `Docker <https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker>`_ extension installed.
+If you're using Docker with our ``./develop.sh`` script, you will need to adapt your custom Compose file once again, or create a new one (see section above):
 
 1. Change the bookbrainz-site service's ``command`` to
 
@@ -325,10 +324,10 @@ For example:
       # 1. Change the command to run
         command: yarn run debug --inspect=0.0.0.0:9229
         ports:
-          - "9099:9099"
       # 2. Expose the port
           - "9229:9229"
 
+Now make sure that you have the `Docker <https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker>`_ extension installed.
 
 That's it, now you can just open the debugger tray in VSCode, select 'Docker: Attach to Node' and click the button!
 
