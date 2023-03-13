@@ -231,7 +231,7 @@ alias, which indicates its original name. It can have many *primary* aliases,
 which give the most common names in particular languages. *Native* aliases will
 usually also be *primary*.
 
-A **disambiguation** allows us to differenciate between two entities with the same name.
+A **disambiguation** allows us to differentiate between two entities with the same name.
 All entities can have a disambiguation (although they are not required),
 referred to by a disambiguation_id, that points to the disambiguation table.
 

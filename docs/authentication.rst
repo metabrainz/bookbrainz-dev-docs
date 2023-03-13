@@ -6,7 +6,7 @@ To allow users to authentication with BookBrainz, the webservice implements
 OAuth 2. We use the password grant type, meaning that clients must forward
 user credentials (username and password) to the website over HTTPS.
 
-When a client successfully authenticates a user, they recieve an access token,
+When a client successfully authenticates a user, they receive an access token,
 which must be sent in the header of every subsequent POST request.
 
 Example requests are shown below, for a username "Jim" and password "Bob123".

@@ -19,7 +19,7 @@ Setting Up
 
 BookBrainz depends on having PostgreSQL, Redis, Elasticsearch and NodeJS set up and running.
 
-But first some basic configuration common to both docker and manual installation.
+But first some basic configuration common to both Docker and manual installation.
 
 Forking
 *******
@@ -32,23 +32,11 @@ Fork this repository
 Cloning
 *******
 
-To clone the repository and point the local HEAD to the latest commit in the stable branch, something like the following command should work
+To clone the repository and point the local HEAD to the latest commit in the stable branch, something like the following command should work:
 
 ::
-    
+
     git clone https://github.com/<Your_Github_Username>/bookbrainz-site.git
-
-Since this project makes use of git submodules, you need to use ``git clone --recurse-submodules`` to clone it.
-
-Alternatively, to manually initialize submodules, run these two commands
-::
-
-    git submodule init
-    git submodule update
-
-Currently we are using these submodules
-
-* `MonkeyDo/Lobes`_ in ``src/client/stylesheets/lobes``
 
 Configuration
 *************
@@ -73,21 +61,25 @@ You can then copy the tokens for that developer application and paste as strings
 
 Docker Installation
 ===================
-The easiest way to get a local developement server running is using Docker. This will save you a fair amount of set up.
 
-You'll need to install Docker and Docker-compose on your development machine:
+The easiest way to get a local development server running is using Docker. This will save you a fair amount of set up.
+
+You'll need to install Docker and Docker-Compose on your development machine:
 
 * `Docker`_
-*  `Docker-compose`_
+* `Docker-Compose`_
 
 .. important:: 
-  
-  We recommended Windows users to :doc:`docker-setup` (preferbly WSL2) to avoid any compatibility issues.
+  We recommended Windows users to :doc:`docker-setup` (preferably WSL2) to avoid any compatibility issues.
   
 When it is installed, follow the below instructions step by step.
 
+.. note::
+  After a fresh Docker installation, you need ~4GB of disk space for the container images, better more.
+
 Database set-up
 ***************
+
 When you first start working with BookBrainz, you will need to perform some initialization for PostgreSQL and import the latest BookBrainz database dump.
 
 Luckily, we have a script that does just that: from the command line, in the ``bookbrainz-site`` folder, type and run ``./scripts/database-init-docker.sh``. The process may take a while as Docker downloads and builds the images. Let that run until the command returns.
@@ -97,6 +89,7 @@ Luckily, we have a script that does just that: from the command line, in the ``b
 
 Running Web server
 ******************
+
 If all went well, you will only need to run ``./develop.sh`` in the command line from the ``bookbrainz-site`` folder. Press ``Ctrl+c`` to stop the server. 
 
 .. note::
@@ -120,10 +113,11 @@ Manual Installation
 If you do not want to use Docker (``./develop.sh``) to run the server on your machine, you can run the server code manually (regardless of whether you are running dependencies (database, search,…) with Docker or you are running them manually)
 So for setting up and running the NodeJS server outside of Docker -
 
-**Installing NodeJS**
+Installing NodeJS and Packages
+------------------------------
+
 To install NodeJS, follow the instruction for your operating system on the `official website <https://nodejs.org/en/download/>`_.
 
-**Installing Packages**
 The site depends on a number of node packages which can be installed using yarn (or npm):
 
 ::
@@ -133,7 +127,8 @@ The site depends on a number of node packages which can be installed using yarn 
 
 This command will also compile the site LESS and JavaScript source files.
 
-**Configuration**
+Configuration
+-------------
 
 Our ``config.example.json`` is set up to work out of the box running everything in Docker. Addresses for the dependencies refer to docker container names, so that containers can communicate with each other.
 
@@ -141,7 +136,9 @@ For local development (run outside of Docker), make a copy of `config/config.loc
 For example, ``yarn start -- --config ./config/config.local.json`` will use ``./config/config.local.json`` config instead of the Default config (``config.json`` for Docker).
 
 
-**Building and running**
+Building and running
+--------------------
+
 A number of subcommands exist to manage the installation and run the server.
 These are described here; any commands not listed should not be called directly:
 
@@ -155,10 +152,13 @@ These are described here; any commands not listed should not be called directly:
 
 Installing dependencies manually 
 ********************************
+
 If you don't want to use Docker for the dependencies, here are the steps you will need to take to get your local environment up and running.
 
-**PostgreSQL**
-BookBrainz uses version 12.3.To get PostgreSQL, use one of the following commands:
+PostgreSQL
+----------
+
+BookBrainz uses version 12.3. To get PostgreSQL, use one of the following commands:
 
 Debian-based OS
 ::
@@ -170,7 +170,9 @@ Red Hat-based OS
 
     sudo yum install postgresql-server
 
-**Redis**
+Redis
+-----
+
 To install Redis, run similar commands to get the dependency from your package
 manager:
 
@@ -185,7 +187,8 @@ Red Hat-based OS
     sudo yum install redis
 
 
-**Elasticsearch**
+Elasticsearch
+-------------
 
 To install Elasticsearch, follow `this helpful guide <https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-16-04) for Linux-based systems or the [official instructions](
 https://www.elastic.co/guide/en/elasticsearch/reference/6.3/install-elasticsearch.html>`_.
@@ -193,6 +196,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/6.3/install-elasticsearc
 The BookBrainz server has been tested with ElasticSearch version 6.3.2.
 
 Setting up Dependencies
+-----------------------
 
 No setup is required for Redis or Elasticsearch. However, it is necessary to
 perform some initialization for PostgreSQL and import the latest BookBrainz
@@ -237,24 +241,28 @@ Search server setup
 
 In order for searching to work on your local server, you will need to index the contents of the database.
 
-1. first, ensure that Elasticsearch is running.
-2. add your user name (if you haven't created a user yet, `now is the time! <https://musicbrainz.org/doc/How_to_Create_an_Account>`) to the array of ``trustedUsers`` in the ``src/server/routes/search.js`` file
-3. with that done and the server (re)started, navigate to ``localhost:9099/search/reindex``
-    Reindexing will take a few minutes depending on your resources, and you can expect that the browser window will time out before the reindexing is done.
-    However the process will continue in the background and after a little while the search indices will be created.
-4. You can now try searching for an entity on the page ``localhost:9099/search``
+1. First, ensure that Elasticsearch is running.
+2. Add your user name (if you haven't created a user yet, `now is the time! <https://musicbrainz.org/doc/How_to_Create_an_Account>`_) to the array of ``trustedUsers`` in the ``src/server/routes/search.js`` file.
+3. With that done and the server (re)started, navigate to ``localhost:9099/search/reindex``.
+   Reindexing will take a few minutes depending on your resources, and you can expect that the browser window will time out before the reindexing is done.
+   However the process will continue in the background and after a little while the search indices will be created.
+4. You can now try searching for an entity on the page ``localhost:9099/search``.
 
-Advance Users
-=============
-To improve your developer experience, here are some things we suggest you should do
+Advanced Users
+==============
+
+To improve your developer experience, here are some things we suggest you should do.
+
+.. _live-reload:
 
 Live Reload
 ***********
+
 You may want to use Webpack to build, watch files and inject rebuilt pages without having to refresh the page, keeping the application state intact, for the price of increased compilation time and resource usage (see note below).
 
 If you are running the server manually, you can simply run ``yarn run debug`` in the command line.
 
-If you're using Docker and our ``./develop.sh`` script, you will need to modify the ``docker-compose.yml`` file and change a few things on the ``bookbrainz-site`` service defined there
+If you're using Docker and our ``./develop.sh`` script, you will need to create a custom Compose file and define a few overrides for the ``bookbrainz-site`` service there:
 
 1. Change the bookbrainz-site command to
 
@@ -272,14 +280,26 @@ For example:
       # 1. Change the command to run
         command: yarn run debug
         volumes:
-          - "./config/config.json:/home/bookbrainz/bookbrainz-site/config/config.json:ro"
       # 2. Mount the src directory
           - "./src:/home/bookbrainz/bookbrainz-site/src"
+
+Ideally you save this new Compose file inside the ``local/`` directory, which will be ignored by git, for example as ``local/docker-compose.live-reload.yml``.
+
+Now you have to explicitly tell Docker-Compose which Compose files it should read when the ``./develop.sh`` script is run.
+In addition to the default ``docker-compose.yml`` we also want Compose to read our custom file with the overrides.
+
+We will achieve that by creating a ``.env`` file (in the repository's root directory) which sets the ``COMPOSE_FILE`` environment variable, e.g.
+
+::
+
+    COMPOSE_FILE=docker-compose.yml:local/docker-compose.live-reload.yml
+
 .. warning::
   Using Webpack watch mode (``yarn run debug``) results in more resource consumption (about ~1GB increased RAM usage) compared to running the standard web server.
 
 Debugging with VSCode
 *********************
+
 You can use VSCode to run the server or API and take advantage of its debugger, an invaluable tool I highly recommend you learn to use.
 This will allow you to put breakpoints to stop and inspect the code and variables during its execution, advance code execution line by line and step into function calls, instead of putting console.log calls everywhere.
 
@@ -287,8 +307,8 @@ This will allow you to put breakpoints to stop and inspect the code and variable
 
 Running the code with Docker
 ----------------------------
-If you're using Docker with our ``./develop.sh`` script, you will need to modify the ``docker-compose.yml`` file and change a few things on the ``bookbrainz-site`` service defined there.
-Make sure, you have the `Docker <https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker>`_ extension installed.
+
+If you're using Docker with our ``./develop.sh`` script, you will need to adapt your custom Compose file once again, or create a new one (see :ref:`live-reload`):
 
 1. Change the bookbrainz-site service's ``command`` to
 
@@ -306,12 +326,12 @@ For example:
       # 1. Change the command to run
         command: yarn run debug --inspect=0.0.0.0:9229
         ports:
-          - "9099:9099"
       # 2. Expose the port
           - "9229:9229"
 
+Now make sure that you have the `Docker <https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker>`_ extension installed.
 
-That's it, now you can just open the debugger tray in VSCode, select 'Docker: Attach to Node ' and click the button!
+That's it, now you can just open the debugger tray in VSCode, select 'Docker: Attach to Node' and click the button!
 
 Running the code with VSCode
 ----------------------------
@@ -320,14 +340,15 @@ There are VSCode configuration files (in the ``.vscode`` folder) for running bot
 
 Testing
 =======
+
 The test suite is built using `Mocha <https://mochajs.org/>`_ and `Chai <https://www.chaijs.com/>`_. Before running the tests, you will need to set up a ``bookbrainz_test`` database in postgres. Here are the instructions to do so:
 
-Run the following command to create and set up the ``bookbrainz_test`` database using Docker
+Run the following command to create and set up the ``bookbrainz_test`` database using Docker:
 ::
 
     docker-compose run --rm bookbrainz-site scripts/wait-for-postgres.sh scripts/create-test-db.sh
 
-If you are running postgres manually outside of Docker, you can set some environment variables before running the script `scripts/create-test-db.sh`
+If you are running postgres manually outside of Docker, you can set some environment variables before running the script ``scripts/create-test-db.sh``.
 In particular ``POSTGRES_HOST=localhost`` but you can also set ``POSTGRES_USER``, ``POSTGRES_PASSWORD`` and ``POSTGRES_DB``.
 
 Once your testing database is set up, you can run the test suite using 
@@ -339,11 +360,11 @@ Once your testing database is set up, you can run the test suite using
 
 * To run locally
 ::
-  
+
     yarn run test 
 
 .. note::
   You may need to adjust your ``config/test.json`` file to match your setup.
 
 .. seealso:: 
-  if you face any issues, please refer to our :doc:`troubleshooting` section.
+  If you face any issues, please refer to our :doc:`troubleshooting` section.
