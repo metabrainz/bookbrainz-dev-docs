@@ -331,7 +331,7 @@ For example:
       # 2. Expose the port
           - "9229:9229"
 
-Now make sure that you have the `Docker <https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker>`_ extension installed.
+Now make sure that you have the `Docker extension <https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker>`_ installed.
 
 That's it, now you can just open the debugger tray in VSCode, select 'Docker: Attach to Node' and click the button!
 
