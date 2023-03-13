@@ -114,7 +114,7 @@ If you do not want to use Docker (``./develop.sh``) to run the server on your ma
 So for setting up and running the NodeJS server outside of Docker -
 
 Installing NodeJS and Packages
-------------------------------
+******************************
 
 To install NodeJS, follow the instruction for your operating system on the `official website <https://nodejs.org/en/download/>`_.
 
@@ -128,7 +128,7 @@ The site depends on a number of node packages which can be installed using yarn 
 This command will also compile the site LESS and JavaScript source files.
 
 Configuration
--------------
+*************
 
 Our ``config.example.json`` is set up to work out of the box running everything in Docker. Addresses for the dependencies refer to docker container names, so that containers can communicate with each other.
 
@@ -137,7 +137,7 @@ For example, ``yarn start -- --config ./config/config.local.json`` will use ``./
 
 
 Building and running
---------------------
+********************
 
 A number of subcommands exist to manage the installation and run the server.
 These are described here; any commands not listed should not be called directly:
