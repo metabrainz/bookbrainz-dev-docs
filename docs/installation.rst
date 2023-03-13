@@ -1,5 +1,3 @@
-.. _DockerGettingStarted: https://docs.docker.com/get-started/
-.. _MonkeyDo/Lobes: https://github.com/MonkeyDo/lobes
 .. _MusicBrainz: https://musicbrainz.org/account/applications
 .. _CritiqueBrainz: https://critiquebrainz.org/profile/applications/
 .. _Docker: https://docs.docker.com/install/
