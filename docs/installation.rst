@@ -38,6 +38,8 @@ To clone the repository and point the local HEAD to the latest commit in the sta
 
     git clone https://github.com/<Your_Github_Username>/bookbrainz-site.git
 
+.. _configuration-file:
+
 Configuration
 *************
 
@@ -132,7 +134,7 @@ Configuration
 
 Our ``config.example.json`` is set up to work out of the box running everything in Docker. Addresses for the dependencies refer to docker container names, so that containers can communicate with each other.
 
-For local development (run outside of Docker), make a copy of `config/config.local.json.example` and [fill up the musicbrainz tokens](README.md#configuration). You can then pass this configuration file when running the server locally using `--config` flag.
+For local development (run outside of Docker), make a copy of ``config/config.local.json.example`` and :ref:`fill up the MusicBrainz tokens <configuration-file>`. You can then pass this configuration file when running the server locally using ``--config`` flag.
 For example, ``yarn start -- --config ./config/config.local.json`` will use ``./config/config.local.json`` config instead of the Default config (``config.json`` for Docker).
 
 
@@ -190,8 +192,8 @@ Red Hat-based OS
 Elasticsearch
 -------------
 
-To install Elasticsearch, follow `this helpful guide <https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-16-04) for Linux-based systems or the [official instructions](
-https://www.elastic.co/guide/en/elasticsearch/reference/6.3/install-elasticsearch.html>`_.
+To install Elasticsearch, follow `this helpful guide <https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-16-04>`_
+for Linux-based systems or the `official instructions <https://www.elastic.co/guide/en/elasticsearch/reference/6.3/install-elasticsearch.html>`_.
 
 The BookBrainz server has been tested with ElasticSearch version 6.3.2.
 
