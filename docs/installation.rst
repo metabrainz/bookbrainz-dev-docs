@@ -253,6 +253,8 @@ Advanced Users
 
 To improve your developer experience, here are some things we suggest you should do.
 
+.. _live-reload:
+
 Live Reload
 ***********
 
@@ -306,7 +308,7 @@ This will allow you to put breakpoints to stop and inspect the code and variable
 Running the code with Docker
 ----------------------------
 
-If you're using Docker with our ``./develop.sh`` script, you will need to adapt your custom Compose file once again, or create a new one (see section above):
+If you're using Docker with our ``./develop.sh`` script, you will need to adapt your custom Compose file once again, or create a new one (see :ref:`live-reload`):
 
 1. Change the bookbrainz-site service's ``command`` to
 
