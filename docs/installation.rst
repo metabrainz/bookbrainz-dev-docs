@@ -30,9 +30,7 @@ Fork this repository
 Cloning
 *******
 
-To clone the repository and point the local HEAD to the latest commit in the stable branch, something like the following command should work:
-
-::
+To clone the repository and point the local HEAD to the latest commit in the stable branch, something like the following command should work::
 
     git clone https://github.com/<Your_Github_Username>/bookbrainz-site.git
 
@@ -41,9 +39,7 @@ To clone the repository and point the local HEAD to the latest commit in the sta
 Configuration
 *************
 
-Create a copy of ``config/config.json.example`` and rename it to ``config.json``. You can do this by running this command from the bookbrainz-site directory.
-
-::
+Create a copy of ``config/config.json.example`` and rename it to ``config.json``. You can do this by running this command from the bookbrainz-site directory::
 
     cp config/config.json.example config/config.json
 
@@ -95,8 +91,7 @@ If all went well, you will only need to run ``./develop.sh`` in the command line
 .. note::
   The dependencies (postgres, redis,…) will continue to run in the background. To stop them, run the command ``./stop.sh``
 
-Wait until the console output gets quiet and this line appears: 
-::
+Wait until the console output gets quiet and this line appears::
 
     > cross-env node ./lib/server/app.js.
 
@@ -118,9 +113,7 @@ Installing NodeJS and Packages
 
 To install NodeJS, follow the instruction for your operating system on the `official website <https://nodejs.org/en/download/>`_.
 
-The site depends on a number of node packages which can be installed using yarn (or npm):
-
-::
+The site depends on a number of node packages which can be installed using yarn (or npm)::
 
     cd bookbrainz-site/
     yarn install
@@ -204,25 +197,21 @@ database dump.
 
 Firstly, begin downloading the `latest BookBrainz dump <http://ftp.musicbrainz.org/pub/musicbrainz/bookbrainz/latest.sql.bz2>`_.
 
-Then, uncompress the ``latest.sql.bz2`` file, using the bzip2 command:
-::
+Then, uncompress the ``latest.sql.bz2`` file, using the bzip2 command::
 
     bzip2 -d latest.sql.bz2
 
 This will give you a file that you can restore into PostgreSQL, which will
-set up data identical to the data we have on the bookbrainz.org website. First, you must create the necessary role and database with these two commands:
-::
+set up data identical to the data we have on the bookbrainz.org website. First, you must create the necessary role and database with these two commands::
 
     psql -h localhost -U postgres --command="CREATE ROLE bookbrainz"	
     psql -h localhost -U postgres --command="CREATE DATABASE bookbrainz"
 
-Then you can restore the database from the lates dump you dowloaded. To do this, run:
-::
+Then you can restore the database from the lates dump you dowloaded. To do this, run::
 
     psql -h localhost -U postgres -d bookbrainz -f latest.sql
 
-At this point, the database is set up, and the following command should give you a list of usernames of BookBrainz editors (after entering the password from earlier):
-::
+At this point, the database is set up, and the following command should give you a list of usernames of BookBrainz editors (after entering the password from earlier)::
 
     psql -h localhost -U postgres bookbrainz --command="SELECT name FROM bookbrainz.editor"
 
@@ -271,9 +260,7 @@ If you're using Docker and our ``./develop.sh`` script, you will need to create 
 
 2. Mount the ``src`` folder to the bookbrainz-site service
 
-For example:
-
-::
+For example::
 
     services:
       bookbrainz-site:
@@ -289,7 +276,6 @@ Now you have to explicitly tell Docker-Compose which Compose files it should rea
 In addition to the default ``docker-compose.yml`` we also want Compose to read our custom file with the overrides.
 
 We will achieve that by creating a ``.env`` file (in the repository's root directory) which sets the ``COMPOSE_FILE`` environment variable, e.g.
-
 ::
 
     COMPOSE_FILE=docker-compose.yml:local/docker-compose.live-reload.yml
@@ -317,9 +303,7 @@ If you're using Docker with our ``./develop.sh`` script, you will need to adapt 
 
 2. Add ``9229:9229`` to ``ports``, for the Docker container to expose port 9229.
 
-For example:
-
-::
+For example::
 
     services:
       bookbrainz-site:
@@ -343,8 +327,7 @@ Testing
 
 The test suite is built using `Mocha <https://mochajs.org/>`_ and `Chai <https://www.chaijs.com/>`_. Before running the tests, you will need to set up a ``bookbrainz_test`` database in postgres. Here are the instructions to do so:
 
-Run the following command to create and set up the ``bookbrainz_test`` database using Docker:
-::
+Run the following command to create and set up the ``bookbrainz_test`` database using Docker::
 
     docker-compose run --rm bookbrainz-site scripts/wait-for-postgres.sh scripts/create-test-db.sh
 
