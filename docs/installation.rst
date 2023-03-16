@@ -127,8 +127,8 @@ The site depends on a number of node packages which can be installed using yarn 
 
 This command will also compile the site LESS and JavaScript source files.
 
-Configuration
-*************
+Local Configuration
+*******************
 
 Our ``config.example.json`` is set up to work out of the box running everything in Docker. Addresses for the dependencies refer to docker container names, so that containers can communicate with each other.
 
@@ -266,8 +266,8 @@ If you're using Docker and our ``./develop.sh`` script, you will need to create 
 
 1. Change the bookbrainz-site command to
 
-* ``yarn run debug`` if you only want to change client files (in ``src/client``)
-* ``yarn run debug-watch-server`` if you also want to modify server files (in ``src/server``)
+   * ``yarn run debug`` if you only want to change client files (in ``src/client``)
+   * ``yarn run debug-watch-server`` if you also want to modify server files (in ``src/server``)
 
 2. Mount the ``src`` folder to the bookbrainz-site service
 
@@ -303,7 +303,7 @@ Debugging with VSCode
 You can use VSCode to run the server or API and take advantage of its debugger, an invaluable tool I highly recommend you learn to use.
 This will allow you to put breakpoints to stop and inspect the code and variables during its execution, advance code execution line by line and step into function calls, instead of putting console.log calls everywhere.
 
-`Here <https://www.youtube.com/watch?v=yFtU6_UaOtA>`_ is a good introduction to debugging javascript in VSCode.
+`This video <https://www.youtube.com/watch?v=yFtU6_UaOtA>`_ is a good introduction to debugging javascript in VSCode.
 
 Running the code with Docker
 ----------------------------
@@ -312,8 +312,8 @@ If you're using Docker with our ``./develop.sh`` script, you will need to adapt 
 
 1. Change the bookbrainz-site service's ``command`` to
 
-* ``yarn run debug --inspect=0.0.0.0:9229`` if you only want to change client files (in ``src/client``)
-* ``yarn run debug-watch-server --inspect=0.0.0.0:9229`` if you also want to modify server files (in ``src/server``)
+   * ``yarn run debug --inspect=0.0.0.0:9229`` if you only want to change client files (in ``src/client``)
+   * ``yarn run debug-watch-server --inspect=0.0.0.0:9229`` if you also want to modify server files (in ``src/server``)
 
 2. Add ``9229:9229`` to ``ports``, for the Docker container to expose port 9229.
 
@@ -353,15 +353,13 @@ In particular ``POSTGRES_HOST=localhost`` but you can also set ``POSTGRES_USER``
 
 Once your testing database is set up, you can run the test suite using 
 
-* To run in Docker
-::
+* To run in Docker::
 
-    docker-compose run --rm bookbrainz-site yarn run test 
+      docker-compose run --rm bookbrainz-site yarn run test 
 
-* To run locally
-::
+* To run locally::
 
-    yarn run test 
+      yarn run test
 
 .. note::
   You may need to adjust your ``config/test.json`` file to match your setup.
