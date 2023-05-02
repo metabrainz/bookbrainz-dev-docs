@@ -1,5 +1,3 @@
-.. _DockerGettingStarted: https://docs.docker.com/get-started/
-.. _MonkeyDo/Lobes: https://github.com/MonkeyDo/lobes
 .. _MusicBrainz: https://musicbrainz.org/account/applications
 .. _CritiqueBrainz: https://critiquebrainz.org/profile/applications/
 .. _Docker: https://docs.docker.com/install/
@@ -32,18 +30,16 @@ Fork this repository
 Cloning
 *******
 
-To clone the repository and point the local HEAD to the latest commit in the stable branch, something like the following command should work:
-
-::
+To clone the repository and point the local HEAD to the latest commit in the stable branch, something like the following command should work::
 
     git clone https://github.com/<Your_Github_Username>/bookbrainz-site.git
+
+.. _configuration-file:
 
 Configuration
 *************
 
-Create a copy of ``config/config.json.example`` and rename it to ``config.json``. You can do this by running this command from the bookbrainz-site directory.
-
-::
+Create a copy of ``config/config.json.example`` and rename it to ``config.json``. You can do this by running this command from the bookbrainz-site directory::
 
     cp config/config.json.example config/config.json
 
@@ -95,8 +91,7 @@ If all went well, you will only need to run ``./develop.sh`` in the command line
 .. note::
   The dependencies (postgres, redis,…) will continue to run in the background. To stop them, run the command ``./stop.sh``
 
-Wait until the console output gets quiet and this line appears: 
-::
+Wait until the console output gets quiet and this line appears::
 
     > cross-env node ./lib/server/app.js.
 
@@ -114,30 +109,28 @@ If you do not want to use Docker (``./develop.sh``) to run the server on your ma
 So for setting up and running the NodeJS server outside of Docker -
 
 Installing NodeJS and Packages
-------------------------------
+******************************
 
 To install NodeJS, follow the instruction for your operating system on the `official website <https://nodejs.org/en/download/>`_.
 
-The site depends on a number of node packages which can be installed using yarn (or npm):
-
-::
+The site depends on a number of node packages which can be installed using yarn (or npm)::
 
     cd bookbrainz-site/
     yarn install
 
 This command will also compile the site LESS and JavaScript source files.
 
-Configuration
--------------
+Local Configuration
+*******************
 
 Our ``config.example.json`` is set up to work out of the box running everything in Docker. Addresses for the dependencies refer to docker container names, so that containers can communicate with each other.
 
-For local development (run outside of Docker), make a copy of `config/config.local.json.example` and [fill up the musicbrainz tokens](README.md#configuration). You can then pass this configuration file when running the server locally using `--config` flag.
+For local development (run outside of Docker), make a copy of ``config/config.local.json.example`` and :ref:`fill up the MusicBrainz tokens <configuration-file>`. You can then pass this configuration file when running the server locally using ``--config`` flag.
 For example, ``yarn start -- --config ./config/config.local.json`` will use ``./config/config.local.json`` config instead of the Default config (``config.json`` for Docker).
 
 
 Building and running
---------------------
+********************
 
 A number of subcommands exist to manage the installation and run the server.
 These are described here; any commands not listed should not be called directly:
@@ -190,8 +183,8 @@ Red Hat-based OS
 Elasticsearch
 -------------
 
-To install Elasticsearch, follow `this helpful guide <https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-16-04) for Linux-based systems or the [official instructions](
-https://www.elastic.co/guide/en/elasticsearch/reference/6.3/install-elasticsearch.html>`_.
+To install Elasticsearch, follow `this helpful guide <https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-16-04>`_
+for Linux-based systems or the `official instructions <https://www.elastic.co/guide/en/elasticsearch/reference/6.3/install-elasticsearch.html>`_.
 
 The BookBrainz server has been tested with ElasticSearch version 6.3.2.
 
@@ -204,25 +197,21 @@ database dump.
 
 Firstly, begin downloading the `latest BookBrainz dump <http://ftp.musicbrainz.org/pub/musicbrainz/bookbrainz/latest.sql.bz2>`_.
 
-Then, uncompress the ``latest.sql.bz2`` file, using the bzip2 command:
-::
+Then, uncompress the ``latest.sql.bz2`` file, using the bzip2 command::
 
     bzip2 -d latest.sql.bz2
 
 This will give you a file that you can restore into PostgreSQL, which will
-set up data identical to the data we have on the bookbrainz.org website. First, you must create the necessary role and database with these two commands:
-::
+set up data identical to the data we have on the bookbrainz.org website. First, you must create the necessary role and database with these two commands::
 
     psql -h localhost -U postgres --command="CREATE ROLE bookbrainz"	
     psql -h localhost -U postgres --command="CREATE DATABASE bookbrainz"
 
-Then you can restore the database from the lates dump you dowloaded. To do this, run:
-::
+Then you can restore the database from the lates dump you dowloaded. To do this, run::
 
     psql -h localhost -U postgres -d bookbrainz -f latest.sql
 
-At this point, the database is set up, and the following command should give you a list of usernames of BookBrainz editors (after entering the password from earlier):
-::
+At this point, the database is set up, and the following command should give you a list of usernames of BookBrainz editors (after entering the password from earlier)::
 
     psql -h localhost -U postgres bookbrainz --command="SELECT name FROM bookbrainz.editor"
 
@@ -266,14 +255,12 @@ If you're using Docker and our ``./develop.sh`` script, you will need to create 
 
 1. Change the bookbrainz-site command to
 
-* ``yarn run debug`` if you only want to change client files (in ``src/client``)
-* ``yarn run debug-watch-server`` if you also want to modify server files (in ``src/server``)
+   * ``yarn run debug`` if you only want to change client files (in ``src/client``)
+   * ``yarn run debug-watch-server`` if you also want to modify server files (in ``src/server``)
 
 2. Mount the ``src`` folder to the bookbrainz-site service
 
-For example:
-
-::
+For example::
 
     services:
       bookbrainz-site:
@@ -289,7 +276,6 @@ Now you have to explicitly tell Docker-Compose which Compose files it should rea
 In addition to the default ``docker-compose.yml`` we also want Compose to read our custom file with the overrides.
 
 We will achieve that by creating a ``.env`` file (in the repository's root directory) which sets the ``COMPOSE_FILE`` environment variable, e.g.
-
 ::
 
     COMPOSE_FILE=docker-compose.yml:local/docker-compose.live-reload.yml
@@ -303,7 +289,7 @@ Debugging with VSCode
 You can use VSCode to run the server or API and take advantage of its debugger, an invaluable tool I highly recommend you learn to use.
 This will allow you to put breakpoints to stop and inspect the code and variables during its execution, advance code execution line by line and step into function calls, instead of putting console.log calls everywhere.
 
-`Here <https://www.youtube.com/watch?v=yFtU6_UaOtA>`_ is a good introduction to debugging javascript in VSCode.
+`This video <https://www.youtube.com/watch?v=yFtU6_UaOtA>`_ is a good introduction to debugging javascript in VSCode.
 
 Running the code with Docker
 ----------------------------
@@ -312,14 +298,12 @@ If you're using Docker with our ``./develop.sh`` script, you will need to adapt 
 
 1. Change the bookbrainz-site service's ``command`` to
 
-* ``yarn run debug --inspect=0.0.0.0:9229`` if you only want to change client files (in ``src/client``)
-* ``yarn run debug-watch-server --inspect=0.0.0.0:9229`` if you also want to modify server files (in ``src/server``)
+   * ``yarn run debug --inspect=0.0.0.0:9229`` if you only want to change client files (in ``src/client``)
+   * ``yarn run debug-watch-server --inspect=0.0.0.0:9229`` if you also want to modify server files (in ``src/server``)
 
 2. Add ``9229:9229`` to ``ports``, for the Docker container to expose port 9229.
 
-For example:
-
-::
+For example::
 
     services:
       bookbrainz-site:
@@ -329,7 +313,7 @@ For example:
       # 2. Expose the port
           - "9229:9229"
 
-Now make sure that you have the `Docker <https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker>`_ extension installed.
+Now make sure that you have the `Docker extension <https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker>`_ installed.
 
 That's it, now you can just open the debugger tray in VSCode, select 'Docker: Attach to Node' and click the button!
 
@@ -343,8 +327,7 @@ Testing
 
 The test suite is built using `Mocha <https://mochajs.org/>`_ and `Chai <https://www.chaijs.com/>`_. Before running the tests, you will need to set up a ``bookbrainz_test`` database in postgres. Here are the instructions to do so:
 
-Run the following command to create and set up the ``bookbrainz_test`` database using Docker:
-::
+Run the following command to create and set up the ``bookbrainz_test`` database using Docker::
 
     docker-compose run --rm bookbrainz-site scripts/wait-for-postgres.sh scripts/create-test-db.sh
 
@@ -353,15 +336,13 @@ In particular ``POSTGRES_HOST=localhost`` but you can also set ``POSTGRES_USER``
 
 Once your testing database is set up, you can run the test suite using 
 
-* To run in Docker
-::
+* To run in Docker::
 
-    docker-compose run --rm bookbrainz-site yarn run test 
+      docker-compose run --rm bookbrainz-site yarn run test 
 
-* To run locally
-::
+* To run locally::
 
-    yarn run test 
+      yarn run test
 
 .. note::
   You may need to adjust your ``config/test.json`` file to match your setup.
