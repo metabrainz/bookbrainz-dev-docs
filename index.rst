@@ -28,6 +28,7 @@ Contents of this documentation
    docs/entity-editor
    docs/unified-form
    docs/troubleshooting
+   docs/seeding
 
 Our repositories
 ================
