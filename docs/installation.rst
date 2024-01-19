@@ -230,12 +230,16 @@ Search server setup
 
 In order for searching to work on your local server, you will need to index the contents of the database.
 
-1. First, ensure that Elasticsearch is running.
-2. Add your user name (if you haven't created a user yet, `now is the time! <https://musicbrainz.org/doc/How_to_Create_an_Account>`_) to the array of ``trustedUsers`` in the ``src/server/routes/search.js`` file.
-3. With that done and the server (re)started, navigate to ``localhost:9099/search/reindex``.
+#. First, ensure that Elasticsearch is running.
+#. Create a user `on MusicBrainz <https://musicbrainz.org/doc/How_to_Create_an_Account>`_ if you haven't already.
+#. Find your user id: navigate to your profile page on ``localhost:9099``, your id will be in the address bar. Alternatively you can query the database to find your id by name.
+#. Grant yourself admin privileges: modify the database by running this SQL command:
+   ``UPDATE bookbrainz.editor SET privs=31 WHERE id=<your-user-id-here>;``
+   For example using psql: ``psql -h localhost -U bookbrainz -d bookbrainz --command="UPDATE bookbrainz.editor SET privs=31 WHERE id=<your-user-id-here>"``
+#. With that done, you will see a new "Privileges" option in the navigation menu, click on "Reindex Search Server".
    Reindexing will take a few minutes depending on your resources, and you can expect that the browser window will time out before the reindexing is done.
    However the process will continue in the background and after a little while the search indices will be created.
-4. You can now try searching for an entity on the page ``localhost:9099/search``.
+#. You can now try searching for an entity on the page ``localhost:9099/search``.
 
 Advanced Users
 ==============
