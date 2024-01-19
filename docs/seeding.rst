@@ -10,7 +10,7 @@ This feature is most useful for bookbrainz's import `userscripts`_.
 
 All date's parameters mentioned below should be in format of YYYY-MM-DD eg. 2002-02-27.
 
-Genric Sections
+Generic Sections
 ===============
 
 This will include parameters for those sections which are common to all entities.
