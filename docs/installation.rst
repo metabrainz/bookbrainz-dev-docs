@@ -26,6 +26,7 @@ Fork this repository
 
 ``https://github.com/metabrainz/bookbrainz-site.git``
 
+.. _cloning-repository:
 
 Cloning
 *******
@@ -65,7 +66,7 @@ You'll need to install Docker and Docker-Compose on your development machine:
 * `Docker`_
 * `Docker-Compose`_
 
-.. important:: 
+.. important::
   We recommended Windows users to :doc:`docker-setup` (preferably WSL2) to avoid any compatibility issues.
   
 When it is installed, follow the below instructions step by step.
@@ -86,7 +87,7 @@ Luckily, we have a script that does just that: from the command line, in the ``b
 Running Web server
 ******************
 
-If all went well, you will only need to run ``./develop.sh`` in the command line from the ``bookbrainz-site`` folder. Press ``Ctrl+c`` to stop the server. 
+If all went well, you will only need to run ``./develop.sh`` in the command line from the ``bookbrainz-site`` folder. Press ``Ctrl+c`` to stop the server.
 
 .. note::
   The dependencies (postgres, redis,…) will continue to run in the background. To stop them, run the command ``./stop.sh``
@@ -140,10 +141,10 @@ These are described here; any commands not listed should not be called directly:
 * lint - check the code for syntax and style issues
 * test - perform linting and attempt to compile the code
 * jsdoc - build the documentation for JSDoc annotated functions within the
-  code 
+  code
 
 
-Installing dependencies manually 
+Installing dependencies manually
 ********************************
 
 If you don't want to use Docker for the dependencies, here are the steps you will need to take to get your local environment up and running.
@@ -204,7 +205,7 @@ Then, uncompress the ``latest.sql.bz2`` file, using the bzip2 command::
 This will give you a file that you can restore into PostgreSQL, which will
 set up data identical to the data we have on the bookbrainz.org website. First, you must create the necessary role and database with these two commands::
 
-    psql -h localhost -U postgres --command="CREATE ROLE bookbrainz"	
+    psql -h localhost -U postgres --command="CREATE ROLE bookbrainz"
     psql -h localhost -U postgres --command="CREATE DATABASE bookbrainz"
 
 Then you can restore the database from the lates dump you dowloaded. To do this, run::
@@ -338,11 +339,11 @@ Run the following command to create and set up the ``bookbrainz_test`` database 
 If you are running postgres manually outside of Docker, you can set some environment variables before running the script ``scripts/create-test-db.sh``.
 In particular ``POSTGRES_HOST=localhost`` but you can also set ``POSTGRES_USER``, ``POSTGRES_PASSWORD`` and ``POSTGRES_DB``.
 
-Once your testing database is set up, you can run the test suite using 
+Once your testing database is set up, you can run the test suite using
 
 * To run in Docker::
 
-      docker-compose run --rm bookbrainz-site yarn run test 
+      docker-compose run --rm bookbrainz-site yarn run test
 
 * To run locally::
 
@@ -351,5 +352,5 @@ Once your testing database is set up, you can run the test suite using
 .. note::
   You may need to adjust your ``config/test.json`` file to match your setup.
 
-.. seealso:: 
+.. seealso::
   If you face any issues, please refer to our :doc:`troubleshooting` section.
