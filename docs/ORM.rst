@@ -50,7 +50,7 @@ Entities and their data
 =======================
 
 When we merge entities, their BBIDs get redirected to the entity we merged into.
-To ensure we are targetting the correct entity, we can use the `recursivelyGetRedirectBBID utility <https://metabrainz.github.io/bookbrainz-data-js/global.html#recursivelyGetRedirectBBID>`_:
+To ensure we are targeting the correct entity, we can use the `recursivelyGetRedirectBBID utility <https://metabrainz.github.io/bookbrainz-data-js/global.html#recursivelyGetRedirectBBID>`_:
 ``const redirectBbid = await orm.func.entity.recursivelyGetRedirectBBID(orm, relEntity.bbid, null);``
 
 To get an entity's current data (i.e. at the last revision) using its BBID, we can forge a new instance of the entity model

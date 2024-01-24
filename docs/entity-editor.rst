@@ -81,9 +81,9 @@ Here, the fields ``disambiguation``, ``name``, ``sortName`` and ``language`` are
 Whenever we start entering any name in the Name field, we use the onChange event handler to fire off 4 different actions:
 
 * ``onNameChange``: this updates the *nameValue*.
-* ``onNameChangeSearchName``: as we enter the name, we try to seach the nameValue in our database in order to let the user see whether the entity already exists in our database. This updates the search term and adds the results in *searchResults*.
+* ``onNameChangeSearchName``: as we enter the name, we try to search the nameValue in our database in order to let the user see whether the entity already exists in our database. This updates the search term and adds the results in *searchResults*.
 * ``onNameChangeCheckIfExists``: if we find an entity whose name matches exactly with the entity name we entered, we try to display a warning so as to avoid the user from making a duplicate entry. This updates the content of *exactMatches*.
-* ``searchForMatchindEditionGroups``: Search for Edition Groups that match the name, if the entity is an Edition.
+* ``searchForMatchingEditionGroups``: Search for Edition Groups that match the name, if the entity is an Edition.
 
 Similarly, appropriate eventHandlers and actions are present for updating the value of *Sort Name* field, *Language*, and *Disambiguation*.
 
@@ -105,11 +105,11 @@ We make use of ``relationshipEditorVisible`` flag to toggle the Relationship edi
 
 **Entity Select field** : The *renderEntitySelect* function deals with this field. Here ``baseEntity`` is the entity which is being edited. The ``EntitySearchFieldOption`` allows us to search for any existing entity which we would like to link to our current *baseEntity*.
 
-We can apply some additional filters to our search, so as to the optimize search results. For example, in case of a Series entity of type X, we dont need to display search results with entities which are not of the same type.
+We can apply some additional filters to our search, so as to the optimize search results. For example, in case of a Series entity of type X, we don't need to display search results with entities which are not of the same type.
 When we select an entity from the Search results, it gets stored as ``targetEntity``.
 
 **RelationshipType Select field** : After selecting a targetEntity, we make use of a function called ``generateRelationshipSelection`` which takes our relationshipTypes object which was passed as a prop to our entity-editor, the baseEntity, and the targetEntity.
-This function returns all combinations of relationship types which are valid between the two entities. We can then select the Relationship Type for our entity using the RelationshipSelect field in the editor. This sets the value of ``relationship`` and ``relationsipType`` of our state.
+This function returns all combinations of relationship types which are valid between the two entities. We can then select the Relationship Type for our entity using the RelationshipSelect field in the editor. This sets the value of ``relationship`` and ``relationshipType`` of our state.
 
 When we click on Add, we pass the ``relationship`` object to the following action:
 ::
