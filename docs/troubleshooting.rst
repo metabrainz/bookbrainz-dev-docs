@@ -48,15 +48,10 @@ General
      git config --global core.autocrlf input
 
   2. Delete the bookbrainz-site directory from its parent directory.
-  ::
 
-  3. Clone the bookbrainz repository again using the appropriate command (the URL will be different if cloning from a fork)
-  ::
-
-     git clone --recurse-submodules https://github.com/metabrainz/bookbrainz-site.git
+  3. Clone the bookbrainz repository again using the appropriate command. Follow the instructions here: :ref:`cloning-repository`
 
   4. The line endings should now be corrected and you may proceed with following the normal installation procedure.
-  ::
 
 Elasticsearch
 =============
