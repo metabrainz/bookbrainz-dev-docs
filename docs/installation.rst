@@ -238,7 +238,7 @@ In order for searching to work on your local server, you will need to index the 
    ``UPDATE bookbrainz.editor SET privs=31 WHERE id=<your-user-id-here>;``
    For example using psql: ``psql -h localhost -U bookbrainz -d bookbrainz --command="UPDATE bookbrainz.editor SET privs=31 WHERE id=<your-user-id-here>"``
 #. Log out and back in to fully benefit from your new privileges.
-#. With that done, you will see a new "Privileges" option in the navigation menu, click on "Reindex Search Server".
+#. With that done, you will see a new "Privileges" option in the navigation menu, click on "Search Admin".
    Reindexing will take a few minutes depending on your resources, and you can expect that the browser window will time out before the reindexing is done.
    However the process will continue in the background and after a little while the search indices will be created.
 #. You can now try searching for an entity on the page ``localhost:9099/search``.
